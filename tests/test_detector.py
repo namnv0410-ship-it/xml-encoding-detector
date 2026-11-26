@@ -5,9 +5,7 @@ from xml_encoding_detector import (
 
 def test_default_encoding():
 
-    result = detect_encoding(
-        b""
-    )
+    result = detect_encoding(b"")
 
     assert result.encoding == "utf-8"
     assert result.source == "default"
@@ -16,14 +14,9 @@ def test_default_encoding():
 
 def test_utf8_bom():
 
-    data = (
-        b"\xef\xbb\xbf"
-        b"<?xml version='1.0'?>"
-    )
+    data = b"\xef\xbb\xbf<?xml version='1.0'?>"
 
-    result = detect_encoding(
-        data
-    )
+    result = detect_encoding(data)
 
     assert result.encoding == "utf-8"
     assert result.source == "bom"

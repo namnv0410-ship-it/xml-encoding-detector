@@ -15,9 +15,7 @@ def detect_encoding(
     data: bytes,
 ) -> DetectionResult:
 
-    if data.startswith(
-        UTF8_BOM
-    ):
+    if data.startswith(UTF8_BOM):
         return DetectionResult(
             encoding="utf-8",
             confidence=1.0,
