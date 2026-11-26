@@ -140,20 +140,17 @@ def test_cli_json_output(
     assert '"valid"' in output
 
     assert '"encoding"' in output
+
+
 def test_cli_summary(
     monkeypatch,
     capsys,
     tmp_path,
 ):
 
-    xml_file = (
-        tmp_path
-        / "test.xml"
-    )
+    xml_file = tmp_path / "test.xml"
 
-    xml_file.write_text(
-        "<root></root>"
-    )
+    xml_file.write_text("<root></root>")
 
     monkeypatch.setattr(
         sys,
@@ -171,35 +168,22 @@ def test_cli_summary(
 
     main()
 
-    output = (
-        capsys
-        .readouterr()
-        .out
-    )
+    output = capsys.readouterr().out
 
-    assert (
-        "Files scanned"
-        in output
-    )
+    assert "Files scanned" in output
 
-    assert (
-        "Valid XML"
-        in output
-    )
+    assert "Valid XML" in output
+
+
 def test_cli_summary_json(
     monkeypatch,
     capsys,
     tmp_path,
 ):
 
-    xml_file = (
-        tmp_path
-        / "test.xml"
-    )
+    xml_file = tmp_path / "test.xml"
 
-    xml_file.write_text(
-        "<root></root>"
-    )
+    xml_file.write_text("<root></root>")
 
     monkeypatch.setattr(
         sys,
@@ -218,59 +202,30 @@ def test_cli_summary_json(
 
     main()
 
-    output = (
-        capsys
-        .readouterr()
-        .out
-    )
+    output = capsys.readouterr().out
 
-    assert (
-        '"files_scanned"'
-        in output
-    )
+    assert '"files_scanned"' in output
 
-    assert (
-        '"valid"'
-        in output
-    )
+    assert '"valid"' in output
 
-    assert (
-        '"encodings"'
-        in output
-    )
+    assert '"encodings"' in output
+
+
 def test_cli_summary_recursive(
     monkeypatch,
     capsys,
     tmp_path,
 ):
 
-    root = (
-        tmp_path
-        / "samples"
-    )
+    root = tmp_path / "samples"
 
-    nested = (
-        root
-        / "nested"
-    )
+    nested = root / "nested"
 
-    nested.mkdir(
-        parents=True
-    )
+    nested.mkdir(parents=True)
 
-    (
-        root
-        / "a.xml"
-    ).write_text(
-        "<a></a>"
-    )
+    (root / "a.xml").write_text("<a></a>")
 
-    (
-        nested
-        / "b.xml"
-    ).write_text(
-        "<b></b>"
-    )
+    (nested / "b.xml").write_text("<b></b>")
 
     monkeypatch.setattr(
         sys,
@@ -289,18 +244,8 @@ def test_cli_summary_recursive(
 
     main()
 
-    output = (
-        capsys
-        .readouterr()
-        .out
-    )
+    output = capsys.readouterr().out
 
-    assert (
-        "Files scanned"
-        in output
-    )
+    assert "Files scanned" in output
 
-    assert (
-        "2"
-        in output
-    )
+    assert "2" in output

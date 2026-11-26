@@ -3,20 +3,13 @@ import sys
 from collections import Counter
 from pathlib import Path
 
-from xml_encoding_detector import (
-    validate_xml,
-)
+from xml_encoding_detector import validate_xml
 
 
 def main() -> int:
-
     if (
         len(sys.argv) < 2
-        or sys.argv[1]
-        in (
-            "-h",
-            "--help",
-        )
+        or sys.argv[1] in ("-h", "--help")
     ):
         print(
             "Usage: xml-encoding-detector "
@@ -26,21 +19,16 @@ def main() -> int:
             "[--recursive] "
             "[--summary]"
         )
-        return 1
+        return 2
 
-    json_mode = (
-        "--json"
-        in sys.argv
-    )
+    json_mode = "--json" in sys.argv
 
     recursive_mode = (
-        "--recursive"
-        in sys.argv
+        "--recursive" in sys.argv
     )
 
     summary_mode = (
-        "--summary"
-        in sys.argv
+        "--summary" in sys.argv
     )
 
     inputs = [
@@ -57,15 +45,11 @@ def main() -> int:
     paths = []
 
     for item in inputs:
-
-        path = Path(
-            item
-        )
+        path = Path(item)
 
         if path.is_dir():
 
             if recursive_mode:
-
                 paths.extend(
                     sorted(
                         path.rglob(
@@ -75,7 +59,6 @@ def main() -> int:
                 )
 
             else:
-
                 paths.extend(
                     sorted(
                         path.glob(
@@ -85,10 +68,7 @@ def main() -> int:
                 )
 
         else:
-
-            paths.append(
-                path
-            )
+            paths.append(path)
 
     results = []
 
@@ -100,18 +80,15 @@ def main() -> int:
     for path in paths:
 
         if not path.exists():
-
             print(
                 f"File not found: {path}"
             )
-
             continue
 
         with open(
             path,
             "rb",
         ) as file:
-
             data = file.read()
 
         result = validate_xml(
@@ -119,15 +96,11 @@ def main() -> int:
         )
 
         if result.valid:
-
             valid_count += 1
-
         else:
-
             invalid_count += 1
 
         if result.encoding:
-
             encodings[
                 result.encoding
             ] += 1
@@ -139,15 +112,12 @@ def main() -> int:
             "error": result.error,
         }
 
-        results.append(
-            entry
-        )
+        results.append(entry)
 
         if (
             not json_mode
             and not summary_mode
         ):
-
             print(
                 f"{path.name}: "
                 f"valid={result.valid}, "
@@ -195,13 +165,8 @@ def main() -> int:
 
             print()
 
-            print(
-                "Encodings"
-            )
-
-            print(
-                "---------"
-            )
+            print("Encodings")
+            print("---------")
 
             for (
                 encoding,
@@ -222,4 +187,8 @@ def main() -> int:
             )
         )
 
+    if invalid_count > 0:
+        return 1
+
     return 0
+        
