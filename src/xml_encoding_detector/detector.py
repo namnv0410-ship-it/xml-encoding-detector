@@ -9,6 +9,13 @@ class DetectionResult:
     source: str
 
 
+@dataclass(slots=True)
+class ValidationResult:
+    valid: bool
+    error: str | None
+    encoding: str | None
+
+
 UTF8_BOM = b"\xef\xbb\xbf"
 
 UTF16_LE_BOM = b"\xff\xfe"
@@ -161,3 +168,28 @@ def is_xml_well_formed(
 
     except Exception:
         return False
+
+
+def validate_xml(
+    data: bytes,
+) -> ValidationResult:
+
+    result = detect_encoding(data)
+
+    try:
+        text = data.decode(result.encoding)
+
+        ElementTree.fromstring(text)
+
+        return ValidationResult(
+            valid=True,
+            error=None,
+            encoding=result.encoding,
+        )
+
+    except Exception as exc:
+        return ValidationResult(
+            valid=False,
+            error=str(exc),
+            encoding=result.encoding,
+        )

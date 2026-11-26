@@ -191,3 +191,33 @@ def test_invalid_xml():
     data = b"<root>"
 
     assert is_xml_well_formed(data) is False
+
+
+def test_validate_xml_success():
+
+    from xml_encoding_detector import (
+        validate_xml,
+    )
+
+    result = validate_xml(b"<root></root>")
+
+    assert result.valid is True
+
+    assert result.error is None
+
+    assert result.encoding == "utf-8"
+
+
+def test_validate_xml_failure():
+
+    from xml_encoding_detector import (
+        validate_xml,
+    )
+
+    result = validate_xml(b"<root>")
+
+    assert result.valid is False
+
+    assert result.error is not None
+
+    assert result.encoding == "utf-8"
