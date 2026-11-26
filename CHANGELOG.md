@@ -2,6 +2,12 @@
 
 Added
 
+ValidationResult dataclass
+
+validate\_xml()
+
+XML validation metadata
+
 XML validation via is\_xml\_well\_formed()
 
 Planned
