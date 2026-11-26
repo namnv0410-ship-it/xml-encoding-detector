@@ -69,3 +69,25 @@ def test_utf32_be_bom():
     assert result.encoding == "utf-32-be"
 
     assert result.source == "bom"
+
+
+def test_xml_declaration_utf8():
+
+    data = b'<?xml version="1.0" encoding="UTF-8"?>'
+
+    result = detect_encoding(data)
+
+    assert result.encoding == "utf-8"
+
+    assert result.source == "xml-declaration"
+
+
+def test_xml_declaration_shift_jis():
+
+    data = b'<?xml version="1.0" encoding="Shift_JIS"?>'
+
+    result = detect_encoding(data)
+
+    assert result.encoding == "shift_jis"
+
+    assert result.source == "xml-declaration"
