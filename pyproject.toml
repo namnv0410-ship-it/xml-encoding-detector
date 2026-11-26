@@ -91,3 +91,6 @@ select = [
 ]
 
 ignore = []
+[project.scripts]
+
+xml-encoding-detector = "xml_encoding_detector.cli:main"
