@@ -1,4 +1,5 @@
 import sys
+
 from xml_encoding_detector.cli import (
     main,
 )
@@ -6,26 +7,26 @@ from xml_encoding_detector.cli import (
 
 def test_cli_import():
 
-    assert callable(
-        main
-    )
+    assert callable(main)
+
 
 def test_cli_main_exists():
 
     result = main
 
     assert result is not None
+
+
 def test_cli_name():
 
-    assert (
-        main.__name__
-        == "main"
-    )
+    assert main.__name__ == "main"
+
+
 def test_cli_doc():
 
-    assert (
-        main is not None
-    )
+    assert main is not None
+
+
 def test_cli_help(
     monkeypatch,
     capsys,
@@ -46,16 +47,9 @@ def test_cli_help(
 
     main()
 
-    output = (
-        capsys
-        .readouterr()
-        .out
-    )
+    output = capsys.readouterr().out
 
-    assert (
-        "Usage:"
-        in output
-    )
+    assert "Usage:" in output
 
 
 def test_cli_missing_file(
@@ -78,39 +72,27 @@ def test_cli_missing_file(
 
     main()
 
-    output = (
-        capsys
-        .readouterr()
-        .out
-    )
+    output = capsys.readouterr().out
 
-    assert (
-        "File not found"
-        in output
-    )
+    assert "File not found" in output
+
+
 def test_cli_valid_xml(
     monkeypatch,
     capsys,
     tmp_path,
 ):
 
-    xml_file = (
-        tmp_path
-        / "test.xml"
-    )
+    xml_file = tmp_path / "test.xml"
 
-    xml_file.write_text(
-        "<root></root>"
-    )
+    xml_file.write_text("<root></root>")
 
     monkeypatch.setattr(
         sys,
         "argv",
         [
             "xml-encoding-detector",
-            str(
-                xml_file
-            ),
+            str(xml_file),
         ],
     )
 
@@ -120,44 +102,29 @@ def test_cli_valid_xml(
 
     main()
 
-    output = (
-        capsys
-        .readouterr()
-        .out
-    )
+    output = capsys.readouterr().out
 
-    assert (
-        "valid=True"
-        in output
-    )
+    assert "valid=True" in output
 
-    assert (
-        "utf-8"
-        in output
-    )
+    assert "utf-8" in output
+
+
 def test_cli_json_output(
     monkeypatch,
     capsys,
     tmp_path,
 ):
 
-    xml_file = (
-        tmp_path
-        / "test.xml"
-    )
+    xml_file = tmp_path / "test.xml"
 
-    xml_file.write_text(
-        "<root></root>"
-    )
+    xml_file.write_text("<root></root>")
 
     monkeypatch.setattr(
         sys,
         "argv",
         [
             "xml-encoding-detector",
-            str(
-                xml_file
-            ),
+            str(xml_file),
             "--json",
         ],
     )
@@ -168,18 +135,8 @@ def test_cli_json_output(
 
     main()
 
-    output = (
-        capsys
-        .readouterr()
-        .out
-    )
+    output = capsys.readouterr().out
 
-    assert (
-        '"valid"'
-        in output
-    )
+    assert '"valid"' in output
 
-    assert (
-        '"encoding"'
-        in output
-    )
+    assert '"encoding"' in output

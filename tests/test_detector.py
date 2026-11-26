@@ -232,51 +232,36 @@ def test_get_xml_encoding():
     result = get_xml_encoding(b"<root></root>")
 
     assert result == "utf-8"
+
+
 def test_xml_declaration_without_value():
 
     from xml_encoding_detector.detector import (
         detect_xml_declaration_encoding,
     )
 
-    data = (
-        b'<?xml version="1.0" encoding='
-    )
+    data = b'<?xml version="1.0" encoding='
 
-    assert (
-        detect_xml_declaration_encoding(
-            data
-        )
-        is None
-    )
+    assert detect_xml_declaration_encoding(data) is None
+
+
 def test_xml_declaration_invalid_quote():
 
     from xml_encoding_detector.detector import (
         detect_xml_declaration_encoding,
     )
 
-    data = (
-        b"<?xml version='1.0' encoding=utf-8 ?>"
-    )
+    data = b"<?xml version='1.0' encoding=utf-8 ?>"
 
-    assert (
-        detect_xml_declaration_encoding(
-            data
-        )
-        is None
-    )
+    assert detect_xml_declaration_encoding(data) is None
+
+
 def test_xml_declaration_unclosed_quote():
 
     from xml_encoding_detector.detector import (
         detect_xml_declaration_encoding,
     )
 
-    data = (
-        b'<?xml version="1.0" encoding="utf-8'
-    )
+    data = b'<?xml version="1.0" encoding="utf-8'
 
-    assert (
-        detect_xml_declaration_encoding(
-            data
-        )
-        is None
-    )
+    assert detect_xml_declaration_encoding(data) is None

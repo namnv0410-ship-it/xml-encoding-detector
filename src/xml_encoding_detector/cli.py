@@ -17,25 +17,29 @@ def main() -> int:
         )
     ):
         print(
-            "Usage: xml-encoding-detector <file-or-directory> [more files...] [--json]"
-        )
+    "Usage: xml-encoding-detector "
+    "<file-or-directory> "
+    "[more files...] "
+    "[--json] "
+    "[--recursive]"
+)
         return 1
 
     json_mode = (
         "--json" in sys.argv
     )
+
     recursive_mode = (
-    "--recursive"
-    in sys.argv
+        "--recursive" in sys.argv
     )
 
     inputs = [
-    arg
-    for arg in sys.argv[1:]
-    if arg not in (
-        "--json",
-        "--recursive",
-    )
+        arg
+        for arg in sys.argv[1:]
+        if arg not in (
+            "--json",
+            "--recursive",
+        )
     ]
 
     paths = []
@@ -48,13 +52,25 @@ def main() -> int:
 
         if path.is_dir():
 
-            paths.extend(
-                sorted(
-                    path.rglob(
-    "*.xml"
-)
+            if recursive_mode:
+
+                paths.extend(
+                    sorted(
+                        path.rglob(
+                            "*.xml"
+                        )
+                    )
                 )
-            )
+
+            else:
+
+                paths.extend(
+                    sorted(
+                        path.glob(
+                            "*.xml"
+                        )
+                    )
+                )
 
         else:
 
@@ -107,10 +123,10 @@ def main() -> int:
     if json_mode:
 
         print(
-    json.dumps(
-        results,
-        indent=2,
-    )
-)
+            json.dumps(
+                results,
+                indent=2,
+            )
+        )
 
     return 0
