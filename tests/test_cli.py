@@ -249,3 +249,139 @@ def test_cli_summary_recursive(
     assert "Files scanned" in output
 
     assert "2" in output
+def test_cli_wildcard(
+    monkeypatch,
+    capsys,
+    tmp_path,
+):
+
+    (
+        tmp_path
+        / "a.xml"
+    ).write_text(
+        "<a></a>"
+    )
+
+    (
+        tmp_path
+        / "b.xml"
+    ).write_text(
+        "<b></b>"
+    )
+
+    pattern = str(
+        tmp_path
+        / "*.xml"
+    )
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            pattern,
+            "--summary",
+        ],
+    )
+
+    from xml_encoding_detector.cli import (
+        main,
+    )
+
+    main()
+
+    output = (
+        capsys
+        .readouterr()
+        .out
+    )
+
+    assert (
+        "Files scanned"
+        in output
+    )
+
+    assert (
+        "2"
+        in output
+    )
+def test_cli_wildcard_json(
+    monkeypatch,
+    capsys,
+    tmp_path,
+):
+
+    (
+        tmp_path
+        / "a.xml"
+    ).write_text(
+        "<a></a>"
+    )
+
+    pattern = str(
+        tmp_path
+        / "*.xml"
+    )
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            pattern,
+            "--summary",
+            "--json",
+        ],
+    )
+
+    from xml_encoding_detector.cli import (
+        main,
+    )
+
+    main()
+
+    output = (
+        capsys
+        .readouterr()
+        .out
+    )
+
+    assert (
+        '"files_scanned"'
+        in output
+    )
+
+    assert (
+        '"valid"'
+        in output
+    )
+def test_cli_invalid_xml_exit_code(
+    monkeypatch,
+    tmp_path,
+):
+
+    xml_file = (
+        tmp_path
+        / "broken.xml"
+    )
+
+    xml_file.write_text(
+        "<root>"
+    )
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            str(xml_file),
+        ],
+    )
+
+    from xml_encoding_detector.cli import (
+        main,
+    )
+
+    result = main()
+
+    assert result == 1
