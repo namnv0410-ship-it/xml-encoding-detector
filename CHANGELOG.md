@@ -1,0 +1,30 @@
+Changelog
+
+0.1.0
+
+Added
+
+UTF-8 BOM detection
+
+UTF-16 LE BOM detection
+
+UTF-16 BE BOM detection
+
+UTF-32 LE BOM detection
+
+UTF-32 BE BOM detection
+
+XML declaration encoding detection
+
+Encoding alias normalization
+
+Quality
+
+GitHub Actions CI
+
+Ruff formatting
+
+Pytest test suite
+
+90% test coverage
+
