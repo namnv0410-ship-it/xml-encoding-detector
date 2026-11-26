@@ -1,5 +1,25 @@
 0.2.0
 
+Added
+
+Batch processing support
+
+Directory scanning support
+
+Pretty JSON output
+
+Improved CLI test coverage
+
+Quality
+
+32 automated tests
+
+97% coverage
+
+Ruff checks
+
+GitHub Actions CI
+
 Planned
 
 CLI batch mode
@@ -11,6 +31,20 @@ JSON batch output
 0.1.1
 
 Added
+
+Batch processing
+
+Directory scanning
+
+Pretty JSON output
+
+Quality
+
+32 tests
+
+97% coverage
+
+Improved CLI testing
 
 get\_xml\_encoding() convenience API
 
