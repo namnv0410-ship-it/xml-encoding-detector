@@ -1,3 +1,4 @@
+import glob
 import json
 import sys
 from collections import Counter
@@ -19,9 +20,7 @@ def main() -> int:
         return 2
 
     json_mode = "--json" in sys.argv
-
     recursive_mode = "--recursive" in sys.argv
-
     summary_mode = "--summary" in sys.argv
 
     inputs = [
@@ -38,6 +37,17 @@ def main() -> int:
     paths = []
 
     for item in inputs:
+        if "*" in item or "?" in item or "[" in item:
+            matches = glob.glob(
+                item,
+                recursive=True,
+            )
+
+            for match in matches:
+                paths.append(Path(match))
+
+            continue
+
         path = Path(item)
 
         if path.is_dir():
@@ -78,14 +88,14 @@ def main() -> int:
         if result.encoding:
             encodings[result.encoding] += 1
 
-        entry = {
-            "file": path.name,
-            "valid": result.valid,
-            "encoding": result.encoding,
-            "error": result.error,
-        }
-
-        results.append(entry)
+        results.append(
+            {
+                "file": path.name,
+                "valid": result.valid,
+                "encoding": result.encoding,
+                "error": result.error,
+            }
+        )
 
         if not json_mode and not summary_mode:
             print(f"{path.name}: valid={result.valid}, encoding={result.encoding}")
@@ -114,7 +124,6 @@ def main() -> int:
             print(f"Invalid XML   : {summary['invalid']}")
 
             print()
-
             print("Encodings")
             print("---------")
 
