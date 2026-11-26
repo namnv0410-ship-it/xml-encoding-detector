@@ -2,6 +2,8 @@
 
 Added
 
+get\_xml\_encoding() convenience API
+
 ValidationResult dataclass
 
 validate\_xml()
