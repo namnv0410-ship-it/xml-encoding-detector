@@ -3,8 +3,28 @@ from xml_encoding_detector import (
 )
 
 
-def test_detect_encoding_returns_utf8():
+def test_default_encoding():
 
-    result = detect_encoding(b"")
+    result = detect_encoding(
+        b""
+    )
 
-    assert result == "utf-8"
+    assert result.encoding == "utf-8"
+    assert result.source == "default"
+    assert result.confidence == 0.5
+
+
+def test_utf8_bom():
+
+    data = (
+        b"\xef\xbb\xbf"
+        b"<?xml version='1.0'?>"
+    )
+
+    result = detect_encoding(
+        data
+    )
+
+    assert result.encoding == "utf-8"
+    assert result.source == "bom"
+    assert result.confidence == 1.0
