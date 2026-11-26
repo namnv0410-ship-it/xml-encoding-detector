@@ -1,5 +1,9 @@
 0.1.1
 
+Added
+
+XML validation via is\_xml\_well\_formed()
+
 Planned
 
 Improve test coverage
