@@ -1,3 +1,13 @@
+0.2.0
+
+Planned
+
+CLI batch mode
+
+Multiple file support
+
+JSON batch output
+
 0.1.1
 
 Added
