@@ -249,30 +249,19 @@ def test_cli_summary_recursive(
     assert "Files scanned" in output
 
     assert "2" in output
+
+
 def test_cli_wildcard(
     monkeypatch,
     capsys,
     tmp_path,
 ):
 
-    (
-        tmp_path
-        / "a.xml"
-    ).write_text(
-        "<a></a>"
-    )
+    (tmp_path / "a.xml").write_text("<a></a>")
 
-    (
-        tmp_path
-        / "b.xml"
-    ).write_text(
-        "<b></b>"
-    )
+    (tmp_path / "b.xml").write_text("<b></b>")
 
-    pattern = str(
-        tmp_path
-        / "*.xml"
-    )
+    pattern = str(tmp_path / "*.xml")
 
     monkeypatch.setattr(
         sys,
@@ -290,38 +279,22 @@ def test_cli_wildcard(
 
     main()
 
-    output = (
-        capsys
-        .readouterr()
-        .out
-    )
+    output = capsys.readouterr().out
 
-    assert (
-        "Files scanned"
-        in output
-    )
+    assert "Files scanned" in output
 
-    assert (
-        "2"
-        in output
-    )
+    assert "2" in output
+
+
 def test_cli_wildcard_json(
     monkeypatch,
     capsys,
     tmp_path,
 ):
 
-    (
-        tmp_path
-        / "a.xml"
-    ).write_text(
-        "<a></a>"
-    )
+    (tmp_path / "a.xml").write_text("<a></a>")
 
-    pattern = str(
-        tmp_path
-        / "*.xml"
-    )
+    pattern = str(tmp_path / "*.xml")
 
     monkeypatch.setattr(
         sys,
@@ -340,34 +313,21 @@ def test_cli_wildcard_json(
 
     main()
 
-    output = (
-        capsys
-        .readouterr()
-        .out
-    )
+    output = capsys.readouterr().out
 
-    assert (
-        '"files_scanned"'
-        in output
-    )
+    assert '"files_scanned"' in output
 
-    assert (
-        '"valid"'
-        in output
-    )
+    assert '"valid"' in output
+
+
 def test_cli_invalid_xml_exit_code(
     monkeypatch,
     tmp_path,
 ):
 
-    xml_file = (
-        tmp_path
-        / "broken.xml"
-    )
+    xml_file = tmp_path / "broken.xml"
 
-    xml_file.write_text(
-        "<root>"
-    )
+    xml_file.write_text("<root>")
 
     monkeypatch.setattr(
         sys,
