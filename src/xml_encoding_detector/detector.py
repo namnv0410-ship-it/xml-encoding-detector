@@ -193,3 +193,10 @@ def validate_xml(
             error=str(exc),
             encoding=result.encoding,
         )
+
+
+def get_xml_encoding(
+    data: bytes,
+) -> str:
+
+    return detect_encoding(data).encoding

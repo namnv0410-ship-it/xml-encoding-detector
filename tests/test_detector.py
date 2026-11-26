@@ -221,3 +221,14 @@ def test_validate_xml_failure():
     assert result.error is not None
 
     assert result.encoding == "utf-8"
+
+
+def test_get_xml_encoding():
+
+    from xml_encoding_detector import (
+        get_xml_encoding,
+    )
+
+    result = get_xml_encoding(b"<root></root>")
+
+    assert result == "utf-8"
