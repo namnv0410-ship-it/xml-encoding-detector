@@ -13,42 +13,43 @@ def main() -> int:
         "-h",
         "--help",
     ):
-        print("Usage: xml-encoding-detector <file>")
+        print("Usage: xml-encoding-detector <file> [file ...]")
         return 1
-
-    path = sys.argv[1]
 
     json_mode = "--json" in sys.argv
 
-    if not Path(path).exists():
-        print(f"File not found: {path}")
+    paths = [arg for arg in sys.argv[1:] if arg != "--json"]
 
-        return 1
+    results = []
 
-    with open(
-        path,
-        "rb",
-    ) as file:
-        data = file.read()
+    for path in paths:
+        if not Path(path).exists():
+            print(f"File not found: {path}")
 
-    result = validate_xml(data)
+            continue
 
-    if json_mode:
-        print(
-            json.dumps(
+        with open(
+            path,
+            "rb",
+        ) as file:
+            data = file.read()
+
+        result = validate_xml(data)
+
+        if json_mode:
+            results.append(
                 {
+                    "file": path,
                     "valid": result.valid,
                     "encoding": result.encoding,
                     "error": result.error,
                 }
             )
-        )
 
-    else:
-        print(f"XML valid : {result.valid}")
+        else:
+            print(f"{path}: valid={result.valid}, encoding={result.encoding}")
 
-        print(f"Encoding  : {result.encoding}")
-
-        print(f"Error     : {result.error}")
+    if json_mode:
+        print(json.dumps(results))
 
     return 0
