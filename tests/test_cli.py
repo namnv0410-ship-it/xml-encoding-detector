@@ -1,3 +1,4 @@
+import sys
 from xml_encoding_detector.cli import (
     main,
 )
@@ -24,4 +25,161 @@ def test_cli_doc():
 
     assert (
         main is not None
+    )
+def test_cli_help(
+    monkeypatch,
+    capsys,
+):
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            "--help",
+        ],
+    )
+
+    from xml_encoding_detector.cli import (
+        main,
+    )
+
+    main()
+
+    output = (
+        capsys
+        .readouterr()
+        .out
+    )
+
+    assert (
+        "Usage:"
+        in output
+    )
+
+
+def test_cli_missing_file(
+    monkeypatch,
+    capsys,
+):
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            "missing.xml",
+        ],
+    )
+
+    from xml_encoding_detector.cli import (
+        main,
+    )
+
+    main()
+
+    output = (
+        capsys
+        .readouterr()
+        .out
+    )
+
+    assert (
+        "File not found"
+        in output
+    )
+def test_cli_valid_xml(
+    monkeypatch,
+    capsys,
+    tmp_path,
+):
+
+    xml_file = (
+        tmp_path
+        / "test.xml"
+    )
+
+    xml_file.write_text(
+        "<root></root>"
+    )
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            str(
+                xml_file
+            ),
+        ],
+    )
+
+    from xml_encoding_detector.cli import (
+        main,
+    )
+
+    main()
+
+    output = (
+        capsys
+        .readouterr()
+        .out
+    )
+
+    assert (
+        "valid=True"
+        in output
+    )
+
+    assert (
+        "utf-8"
+        in output
+    )
+def test_cli_json_output(
+    monkeypatch,
+    capsys,
+    tmp_path,
+):
+
+    xml_file = (
+        tmp_path
+        / "test.xml"
+    )
+
+    xml_file.write_text(
+        "<root></root>"
+    )
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            str(
+                xml_file
+            ),
+            "--json",
+        ],
+    )
+
+    from xml_encoding_detector.cli import (
+        main,
+    )
+
+    main()
+
+    output = (
+        capsys
+        .readouterr()
+        .out
+    )
+
+    assert (
+        '"valid"'
+        in output
+    )
+
+    assert (
+        '"encoding"'
+        in output
     )
