@@ -9,22 +9,61 @@ from xml_encoding_detector import (
 
 def main() -> int:
 
-    if len(sys.argv) < 2 or sys.argv[1] in (
-        "-h",
-        "--help",
+    if (
+        len(sys.argv) < 2
+        or sys.argv[1] in (
+            "-h",
+            "--help",
+        )
     ):
-        print("Usage: xml-encoding-detector <file> [file ...]")
+        print(
+            "Usage: xml-encoding-detector <file-or-directory> [more files...] [--json]"
+        )
         return 1
 
-    json_mode = "--json" in sys.argv
+    json_mode = (
+        "--json" in sys.argv
+    )
 
-    paths = [arg for arg in sys.argv[1:] if arg != "--json"]
+    inputs = [
+        arg
+        for arg in sys.argv[1:]
+        if arg != "--json"
+    ]
+
+    paths = []
+
+    for item in inputs:
+
+        path = Path(
+            item
+        )
+
+        if path.is_dir():
+
+            paths.extend(
+                sorted(
+                    path.glob(
+                        "*.xml"
+                    )
+                )
+            )
+
+        else:
+
+            paths.append(
+                path
+            )
 
     results = []
 
     for path in paths:
-        if not Path(path).exists():
-            print(f"File not found: {path}")
+
+        if not path.exists():
+
+            print(
+                f"File not found: {path}"
+            )
 
             continue
 
@@ -32,14 +71,18 @@ def main() -> int:
             path,
             "rb",
         ) as file:
+
             data = file.read()
 
-        result = validate_xml(data)
+        result = validate_xml(
+            data
+        )
 
         if json_mode:
+
             results.append(
                 {
-                    "file": path,
+                    "file": path.name,
                     "valid": result.valid,
                     "encoding": result.encoding,
                     "error": result.error,
@@ -47,9 +90,19 @@ def main() -> int:
             )
 
         else:
-            print(f"{path}: valid={result.valid}, encoding={result.encoding}")
+
+            print(
+                f"{path.name}: "
+                f"valid={result.valid}, "
+                f"encoding={result.encoding}"
+            )
 
     if json_mode:
-        print(json.dumps(results))
+
+        print(
+            json.dumps(
+                results
+            )
+        )
 
     return 0
