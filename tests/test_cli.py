@@ -140,3 +140,167 @@ def test_cli_json_output(
     assert '"valid"' in output
 
     assert '"encoding"' in output
+def test_cli_summary(
+    monkeypatch,
+    capsys,
+    tmp_path,
+):
+
+    xml_file = (
+        tmp_path
+        / "test.xml"
+    )
+
+    xml_file.write_text(
+        "<root></root>"
+    )
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            str(xml_file),
+            "--summary",
+        ],
+    )
+
+    from xml_encoding_detector.cli import (
+        main,
+    )
+
+    main()
+
+    output = (
+        capsys
+        .readouterr()
+        .out
+    )
+
+    assert (
+        "Files scanned"
+        in output
+    )
+
+    assert (
+        "Valid XML"
+        in output
+    )
+def test_cli_summary_json(
+    monkeypatch,
+    capsys,
+    tmp_path,
+):
+
+    xml_file = (
+        tmp_path
+        / "test.xml"
+    )
+
+    xml_file.write_text(
+        "<root></root>"
+    )
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            str(xml_file),
+            "--summary",
+            "--json",
+        ],
+    )
+
+    from xml_encoding_detector.cli import (
+        main,
+    )
+
+    main()
+
+    output = (
+        capsys
+        .readouterr()
+        .out
+    )
+
+    assert (
+        '"files_scanned"'
+        in output
+    )
+
+    assert (
+        '"valid"'
+        in output
+    )
+
+    assert (
+        '"encodings"'
+        in output
+    )
+def test_cli_summary_recursive(
+    monkeypatch,
+    capsys,
+    tmp_path,
+):
+
+    root = (
+        tmp_path
+        / "samples"
+    )
+
+    nested = (
+        root
+        / "nested"
+    )
+
+    nested.mkdir(
+        parents=True
+    )
+
+    (
+        root
+        / "a.xml"
+    ).write_text(
+        "<a></a>"
+    )
+
+    (
+        nested
+        / "b.xml"
+    ).write_text(
+        "<b></b>"
+    )
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            str(root),
+            "--recursive",
+            "--summary",
+        ],
+    )
+
+    from xml_encoding_detector.cli import (
+        main,
+    )
+
+    main()
+
+    output = (
+        capsys
+        .readouterr()
+        .out
+    )
+
+    assert (
+        "Files scanned"
+        in output
+    )
+
+    assert (
+        "2"
+        in output
+    )
