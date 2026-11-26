@@ -1,3 +1,4 @@
+import json
 import sys
 from pathlib import Path
 
@@ -17,6 +18,8 @@ def main() -> int:
 
     path = sys.argv[1]
 
+    json_mode = "--json" in sys.argv
+
     if not Path(path).exists():
         print(f"File not found: {path}")
 
@@ -30,10 +33,22 @@ def main() -> int:
 
     result = validate_xml(data)
 
-    print(f"XML valid : {result.valid}")
+    if json_mode:
+        print(
+            json.dumps(
+                {
+                    "valid": result.valid,
+                    "encoding": result.encoding,
+                    "error": result.error,
+                }
+            )
+        )
 
-    print(f"Encoding  : {result.encoding}")
+    else:
+        print(f"XML valid : {result.valid}")
 
-    print(f"Error     : {result.error}")
+        print(f"Encoding  : {result.encoding}")
+
+        print(f"Error     : {result.error}")
 
     return 0
