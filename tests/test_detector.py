@@ -91,3 +91,14 @@ def test_xml_declaration_shift_jis():
     assert result.encoding == "shift_jis"
 
     assert result.source == "xml-declaration"
+
+
+def test_xml_declaration_utf8_alias():
+
+    data = b'<?xml version="1.0" encoding="UTF8"?>'
+
+    result = detect_encoding(data)
+
+    assert result.encoding == "utf-8"
+
+    assert result.source == "xml-declaration"

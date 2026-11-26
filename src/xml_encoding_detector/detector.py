@@ -16,6 +16,26 @@ UTF16_BE_BOM = b"\xfe\xff"
 UTF32_LE_BOM = b"\xff\xfe\x00\x00"
 UTF32_BE_BOM = b"\x00\x00\xfe\xff"
 
+ENCODING_ALIASES = {
+    "utf8": "utf-8",
+    "utf-16le": "utf-16-le",
+    "utf-16be": "utf-16-be",
+    "utf-32le": "utf-32-le",
+    "utf-32be": "utf-32-be",
+}
+
+
+def normalize_encoding(
+    encoding: str,
+) -> str:
+
+    value = encoding.strip().lower()
+
+    return ENCODING_ALIASES.get(
+        value,
+        value,
+    )
+
 
 def detect_xml_declaration_encoding(
     data: bytes,
@@ -59,7 +79,7 @@ def detect_xml_declaration_encoding(
     if end == -1:
         return None
 
-    return value[1:end].lower()
+    return normalize_encoding(value[1:end])
 
 
 def detect_encoding(
