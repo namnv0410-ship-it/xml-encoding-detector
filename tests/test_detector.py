@@ -47,3 +47,25 @@ def test_utf16_be_bom():
     assert result.source == "bom"
 
     assert result.confidence == 1.0
+
+
+def test_utf32_le_bom():
+
+    data = b"\xff\xfe\x00\x00<\x00\x00\x00"
+
+    result = detect_encoding(data)
+
+    assert result.encoding == "utf-32-le"
+
+    assert result.source == "bom"
+
+
+def test_utf32_be_bom():
+
+    data = b"\x00\x00\xfe\xff\x00\x00\x00<"
+
+    result = detect_encoding(data)
+
+    assert result.encoding == "utf-32-be"
+
+    assert result.source == "bom"
