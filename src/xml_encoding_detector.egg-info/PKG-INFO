@@ -1,0 +1,19 @@
+Metadata-Version: 2.4
+Name: xml-encoding-detector
+Version: 0.1.0
+Summary: Lightweight XML encoding detector for Python.
+Author: namnv0410
+License: MIT
+Project-URL: Homepage, https://github.com/namnv0410-ship-it/xml-encoding-detector
+Project-URL: Repository, https://github.com/namnv0410-ship-it/xml-encoding-detector
+Project-URL: Issues, https://github.com/namnv0410-ship-it/xml-encoding-detector/issues
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: lxml>=5.0
+Provides-Extra: test
+Requires-Dist: pytest>=8.0; extra == "test"
+Requires-Dist: pytest-cov>=5.0; extra == "test"
+Provides-Extra: dev
+Requires-Dist: ruff>=0.7; extra == "dev"
+Dynamic: license-file
