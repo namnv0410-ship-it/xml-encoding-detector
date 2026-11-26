@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from xml.etree import ElementTree
 
 
 @dataclass(slots=True)
@@ -143,3 +144,20 @@ def detect_encoding(
         confidence=0.5,
         source="default",
     )
+
+
+def is_xml_well_formed(
+    data: bytes,
+) -> bool:
+
+    result = detect_encoding(data)
+
+    try:
+        text = data.decode(result.encoding)
+
+        ElementTree.fromstring(text)
+
+        return True
+
+    except Exception:
+        return False

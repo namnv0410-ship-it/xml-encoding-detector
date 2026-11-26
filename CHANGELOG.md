@@ -1,3 +1,13 @@
+0.1.1
+
+Planned
+
+Improve test coverage
+
+Improve encoding normalization
+
+Add XML validation utilities
+
 Changelog
 
 0.1.0

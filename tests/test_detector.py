@@ -169,3 +169,25 @@ def test_normalize_big5():
     )
 
     assert normalize_encoding("BIG5") == "big5"
+
+
+def test_well_formed_xml():
+
+    from xml_encoding_detector import (
+        is_xml_well_formed,
+    )
+
+    data = b"<root></root>"
+
+    assert is_xml_well_formed(data) is True
+
+
+def test_invalid_xml():
+
+    from xml_encoding_detector import (
+        is_xml_well_formed,
+    )
+
+    data = b"<root>"
+
+    assert is_xml_well_formed(data) is False
