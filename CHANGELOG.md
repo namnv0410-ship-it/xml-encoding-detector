@@ -10,25 +10,31 @@ Pretty JSON output
 
 Improved CLI test coverage
 
+CLI
+
+Single file processing
+
+Multiple file processing
+
+Directory scanning
+
+JSON output
+
+Pretty JSON formatting
+
+File not found handling
+
+Help command support
+
 Quality
 
 32 automated tests
 
 97% coverage
 
-Ruff checks
+Ruff formatting and linting
 
-GitHub Actions CI
-
-Planned
-
-CLI batch mode
-
-Multiple file support
-
-JSON batch output
-
-0.1.1
+GitHub Actions CI0.1.1
 
 Added
 
