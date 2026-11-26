@@ -24,11 +24,18 @@ def main() -> int:
     json_mode = (
         "--json" in sys.argv
     )
+    recursive_mode = (
+    "--recursive"
+    in sys.argv
+    )
 
     inputs = [
-        arg
-        for arg in sys.argv[1:]
-        if arg != "--json"
+    arg
+    for arg in sys.argv[1:]
+    if arg not in (
+        "--json",
+        "--recursive",
+    )
     ]
 
     paths = []
@@ -43,9 +50,9 @@ def main() -> int:
 
             paths.extend(
                 sorted(
-                    path.glob(
-                        "*.xml"
-                    )
+                    path.rglob(
+    "*.xml"
+)
                 )
             )
 
