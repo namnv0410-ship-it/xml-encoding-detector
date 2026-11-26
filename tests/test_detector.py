@@ -5,8 +5,6 @@ from xml_encoding_detector import (
 
 def test_detect_encoding_returns_utf8():
 
-    result = detect_encoding(
-        b""
-    )
+    result = detect_encoding(b"")
 
     assert result == "utf-8"
