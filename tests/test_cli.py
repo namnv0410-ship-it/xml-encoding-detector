@@ -345,3 +345,55 @@ def test_cli_invalid_xml_exit_code(
     result = main()
 
     assert result == 1
+def test_cli_output_file(
+    monkeypatch,
+    tmp_path,
+):
+
+    xml_file = (
+        tmp_path
+        / "test.xml"
+    )
+
+    xml_file.write_text(
+        "<root></root>"
+    )
+
+    report = (
+        tmp_path
+        / "report.json"
+    )
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            str(xml_file),
+            "--summary",
+            "--json",
+            "--output",
+            str(report),
+        ],
+    )
+
+    from xml_encoding_detector.cli import (
+        main,
+    )
+
+    result = main()
+
+    assert result == 0
+
+    assert report.exists()
+
+    content = (
+        report.read_text(
+            encoding="utf-8"
+        )
+    )
+
+    assert (
+        '"files_scanned"'
+        in content
+    )

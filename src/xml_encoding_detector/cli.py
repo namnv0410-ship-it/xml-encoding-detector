@@ -7,32 +7,71 @@ from pathlib import Path
 from xml_encoding_detector import validate_xml
 
 
+def write_output(
+    content: str,
+    output_file: str | None,
+) -> None:
+    if output_file:
+        Path(output_file).write_text(
+            content,
+            encoding="utf-8",
+        )
+    else:
+        print(content)
+
+
 def main() -> int:
-    if len(sys.argv) < 2 or sys.argv[1] in ("-h", "--help"):
+    if len(sys.argv) < 2 or sys.argv[1] in (
+        "-h",
+        "--help",
+    ):
         print(
-            "Usage: xml-encoding-detector "
+            "Usage: "
+            "xml-encoding-detector "
             "<file-or-directory> "
             "[more files...] "
             "[--json] "
             "[--recursive] "
-            "[--summary]"
+            "[--summary] "
+            "[--output FILE]"
         )
         return 2
 
     json_mode = "--json" in sys.argv
+
     recursive_mode = "--recursive" in sys.argv
+
     summary_mode = "--summary" in sys.argv
 
-    inputs = [
-        arg
-        for arg in sys.argv[1:]
-        if arg
-        not in (
+    output_file = None
+
+    if "--output" in sys.argv:
+        index = sys.argv.index("--output")
+
+        if index + 1 < len(sys.argv):
+            output_file = sys.argv[index + 1]
+
+    skip_next = False
+
+    inputs = []
+
+    for arg in sys.argv[1:]:
+        if skip_next:
+            skip_next = False
+            continue
+
+        if arg == "--output":
+            skip_next = True
+            continue
+
+        if arg in (
             "--json",
             "--recursive",
             "--summary",
-        )
-    ]
+        ):
+            continue
+
+        inputs.append(arg)
 
     paths = []
 
@@ -70,6 +109,7 @@ def main() -> int:
     for path in paths:
         if not path.exists():
             print(f"File not found: {path}")
+
             continue
 
         with open(
@@ -82,6 +122,7 @@ def main() -> int:
 
         if result.valid:
             valid_count += 1
+
         else:
             invalid_count += 1
 
@@ -109,11 +150,14 @@ def main() -> int:
         }
 
         if json_mode:
-            print(
-                json.dumps(
-                    summary,
-                    indent=2,
-                )
+            content = json.dumps(
+                summary,
+                indent=2,
+            )
+
+            write_output(
+                content,
+                output_file,
             )
 
         else:
@@ -124,7 +168,9 @@ def main() -> int:
             print(f"Invalid XML   : {summary['invalid']}")
 
             print()
+
             print("Encodings")
+
             print("---------")
 
             for (
@@ -134,11 +180,14 @@ def main() -> int:
                 print(f"{encoding:<15} {count}")
 
     elif json_mode:
-        print(
-            json.dumps(
-                results,
-                indent=2,
-            )
+        content = json.dumps(
+            results,
+            indent=2,
+        )
+
+        write_output(
+            content,
+            output_file,
         )
 
     if invalid_count > 0:
