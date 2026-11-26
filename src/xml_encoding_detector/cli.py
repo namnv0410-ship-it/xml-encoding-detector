@@ -100,9 +100,10 @@ def main() -> int:
     if json_mode:
 
         print(
-            json.dumps(
-                results
-            )
-        )
+    json.dumps(
+        results,
+        indent=2,
+    )
+)
 
     return 0
