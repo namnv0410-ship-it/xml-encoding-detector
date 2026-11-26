@@ -1,4 +1,44 @@
-0.2.0
+0.3.0
+
+Added
+
+Recursive directory scanning
+
+Summary mode
+
+Summary JSON output
+
+CLI exit codes
+
+Wildcard support
+
+CLI
+
+Single file processing
+
+Multi-file processing
+
+Directory scanning
+
+Recursive scanning
+
+Wildcard patterns
+
+JSON output
+
+Summary reports
+
+Quality
+
+38 automated tests
+
+98% coverage
+
+Ruff linting
+
+Ruff formatting
+
+GitHub Actions CI0.2.0
 
 Added
 
