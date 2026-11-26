@@ -18,10 +18,18 @@ UTF32_BE_BOM = b"\x00\x00\xfe\xff"
 
 ENCODING_ALIASES = {
     "utf8": "utf-8",
-    "utf-16le": "utf-16-le",
-    "utf-16be": "utf-16-be",
-    "utf-32le": "utf-32-le",
-    "utf-32be": "utf-32-be",
+    "utf16": "utf-16",
+    "utf16le": "utf-16-le",
+    "utf16be": "utf-16-be",
+    "utf32": "utf-32",
+    "utf32le": "utf-32-le",
+    "utf32be": "utf-32-be",
+    "shift-jis": "shift_jis",
+    "windows-1258": "cp1258",
+    "gb2312": "gb2312",
+    "gbk": "gbk",
+    "gb18030": "gb18030",
+    "big5": "big5",
 }
 
 

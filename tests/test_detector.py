@@ -102,3 +102,70 @@ def test_xml_declaration_utf8_alias():
     assert result.encoding == "utf-8"
 
     assert result.source == "xml-declaration"
+
+
+def test_shift_jis_alias():
+
+    data = b'<?xml version="1.0" encoding="Shift-JIS"?>'
+
+    result = detect_encoding(data)
+
+    assert result.encoding == "shift_jis"
+
+    assert result.source == "xml-declaration"
+
+
+def test_normalize_utf16_alias():
+
+    from xml_encoding_detector.detector import (
+        normalize_encoding,
+    )
+
+    assert normalize_encoding("UTF16LE") == "utf-16-le"
+
+
+def test_normalize_utf32_alias():
+
+    from xml_encoding_detector.detector import (
+        normalize_encoding,
+    )
+
+    assert normalize_encoding("UTF32BE") == "utf-32-be"
+
+
+def test_normalize_unknown_encoding():
+
+    from xml_encoding_detector.detector import (
+        normalize_encoding,
+    )
+
+    assert normalize_encoding("GB18030") == "gb18030"
+
+
+def test_xml_without_encoding():
+
+    data = b'<?xml version="1.0"?>'
+
+    result = detect_encoding(data)
+
+    assert result.encoding == "utf-8"
+
+    assert result.source == "default"
+
+
+def test_normalize_windows_1258():
+
+    from xml_encoding_detector.detector import (
+        normalize_encoding,
+    )
+
+    assert normalize_encoding("windows-1258") == "cp1258"
+
+
+def test_normalize_big5():
+
+    from xml_encoding_detector.detector import (
+        normalize_encoding,
+    )
+
+    assert normalize_encoding("BIG5") == "big5"
