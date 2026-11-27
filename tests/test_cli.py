@@ -651,3 +651,63 @@ def test_html_report_contains_encoding_row(
     )
 
     assert "<td>utf-8</td>" in content
+def test_html_report_contains_summary_section(
+    monkeypatch,
+    tmp_path,
+):
+    xml_file = tmp_path / "test.xml"
+
+    xml_file.write_text(
+        "<root></root>"
+    )
+
+    report = tmp_path / "report.html"
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            str(xml_file),
+            "--html",
+            str(report),
+        ],
+    )
+
+    assert main() == 0
+
+    content = report.read_text(
+        encoding="utf-8"
+    )
+
+    assert "Summary" in content
+def test_html_report_contains_files_scanned_summary(
+    monkeypatch,
+    tmp_path,
+):
+    xml_file = tmp_path / "test.xml"
+
+    xml_file.write_text(
+        "<root></root>"
+    )
+
+    report = tmp_path / "report.html"
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            str(xml_file),
+            "--html",
+            str(report),
+        ],
+    )
+
+    assert main() == 0
+
+    content = report.read_text(
+        encoding="utf-8"
+    )
+
+    assert "Files Scanned" in content

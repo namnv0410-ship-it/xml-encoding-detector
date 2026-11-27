@@ -209,9 +209,12 @@ def main() -> int:
             file.write(
                 "<h1>XML Encoding Audit Report</h1>"
             )
+            file.write(
+                "<h2>Summary</h2>"
+            )
 
             file.write(
-                f"<p>Files scanned: "
+                f"<p>Files Scanned: {len(results)}</p>"
                 f"{len(results)}</p>"
             )
             file.write(
