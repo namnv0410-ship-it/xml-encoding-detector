@@ -1,3 +1,4 @@
+import csv
 import glob
 import json
 import sys
@@ -44,23 +45,46 @@ def main() -> int:
     summary_mode = "--summary" in sys.argv
 
     output_file = None
+    csv_file = None
 
     if "--output" in sys.argv:
         index = sys.argv.index("--output")
 
         if index + 1 < len(sys.argv):
             output_file = sys.argv[index + 1]
+    if "--csv" in sys.argv:
+
+        index = sys.argv.index(
+            "--csv"
+        )
+
+        if (
+            index + 1
+            < len(sys.argv)
+        ):
+
+            csv_file = sys.argv[
+                index + 1
+            ]
 
     skip_next = False
 
     inputs = []
 
     for arg in sys.argv[1:]:
+
         if skip_next:
+
             skip_next = False
             continue
 
         if arg == "--output":
+
+            skip_next = True
+            continue
+
+        if arg == "--csv":
+
             skip_next = True
             continue
 
@@ -68,7 +92,9 @@ def main() -> int:
             "--json",
             "--recursive",
             "--summary",
+            "--csv",
         ):
+
             continue
 
         inputs.append(arg)
@@ -140,7 +166,30 @@ def main() -> int:
 
         if not json_mode and not summary_mode:
             print(f"{path.name}: valid={result.valid}, encoding={result.encoding}")
+    if csv_file:
 
+        with open(
+            csv_file,
+            "w",
+            newline="",
+            encoding="utf-8",
+        ) as file:
+
+            writer = csv.DictWriter(
+                file,
+                fieldnames=[
+                    "file",
+                    "valid",
+                    "encoding",
+                    "error",
+                ],
+            )
+
+            writer.writeheader()
+
+            writer.writerows(
+                results
+            )
     if summary_mode:
         summary = {
             "files_scanned": len(results),

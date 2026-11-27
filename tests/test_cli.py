@@ -397,3 +397,56 @@ def test_cli_output_file(
         '"files_scanned"'
         in content
     )
+def test_cli_csv_output(
+    monkeypatch,
+    tmp_path,
+):
+
+    xml_file = (
+        tmp_path
+        / "test.xml"
+    )
+
+    xml_file.write_text(
+        "<root></root>"
+    )
+
+    report = (
+        tmp_path
+        / "report.csv"
+    )
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            str(xml_file),
+            "--csv",
+            str(report),
+        ],
+    )
+
+    from xml_encoding_detector.cli import (
+        main,
+    )
+
+    result = main()
+
+    assert result == 0
+
+    assert report.exists()
+
+    content = report.read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "file,valid,encoding,error"
+        in content
+    )
+
+    assert (
+        "test.xml"
+        in content
+    )
