@@ -199,114 +199,14 @@ def main() -> int:
 
             writer.writerows(results)
     if html_file:
-
-        with open(
+        write_html_report(
             html_file,
-            "w",
-            encoding="utf-8",
-        ) as file:
-
-            file.write(
-                "<html><body>"
-            )
-
-            file.write(
-                "<h1>XML Encoding Audit Report</h1>"
-            )
-            file.write(
-                "<h2>Summary</h2>"
-            )
-
-            file.write(
-                f"<p>Files Scanned: {len(results)}</p>"
-            )
-            file.write(
-                f"<p>Valid XML: "
-                f"{valid_count}</p>"
-            )
-            top_encoding = max(
-                encodings.items(),
-                key=lambda item: item[1],
-            )[0]
-            file.write(
-                f"<p>Top Encoding: {top_encoding}</p>"
-            )
-            file.write(
-                f"<p>Invalid XML: "
-                f"{invalid_count}</p>"
-            )
-            file.write(
-                "<h2>Encoding Distribution</h2>"
-            )
-            file.write(
-                "<table border='1'>"
-            )
-
-            file.write(
-                "<tr>"
-                "<th>Encoding</th>"
-                "<th>Count</th>"
-                "<th>Percentage</th>"
-                "</tr>"
-            )
-            file.write("</table>")
-            total = sum(
-                encodings.values()
-            )
-
-            if total:
-              
-                for (
-                    encoding,
-                    count,
-                ) in sorted(
-                    encodings.items()
-                ):
-
-                    percentage = (
-                        count
-                        / total
-                        * 100
-                    )
-
-                    file.write(
-                        "<tr>"
-                        f"<td>{encoding}</td>"
-                        f"<td>{count}</td>"
-                        f"<td>{percentage:.1f}%</td>"
-                        "</tr>"
-                    )
-
-
-            file.write(
-                "<table border='1'>"
-            )
-
-            file.write(
-                "<tr>"
-                "<th>File</th>"
-                "<th>Encoding</th>"
-                "<th>Valid</th>"
-                "</tr>"
-            )
-
-            for result in results:
-
-                file.write(
-                    "<tr>"
-                    f"<td>{result['file']}</td>"
-                    f"<td>{result['encoding']}</td>"
-                    f"<td>{result['valid']}</td>"
-                    "</tr>"
-                )
-
-            file.write(
-                "</table>"
-            )
-
-            file.write(
-                "</body></html>"
-            )
+            results,
+            encodings,
+            valid_count,
+            invalid_count,
+        )
+            
     if stats_mode:
         print(f"Files scanned : {len(results)}")
 
