@@ -621,3 +621,33 @@ def test_html_report_contains_encoding_data(
 
     assert "utf-8" in content
     assert "100.0%" in content
+def test_html_report_contains_encoding_row(
+    monkeypatch,
+    tmp_path,
+):
+    xml_file = tmp_path / "test.xml"
+
+    xml_file.write_text(
+        "<root></root>"
+    )
+
+    report = tmp_path / "report.html"
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            str(xml_file),
+            "--html",
+            str(report),
+        ],
+    )
+
+    assert main() == 0
+
+    content = report.read_text(
+        encoding="utf-8"
+    )
+
+    assert "<td>utf-8</td>" in content
