@@ -771,3 +771,46 @@ def test_html_report_contains_top_encoding(
     )
 
     assert "Top Encoding" in content
+def test_top_encoding_is_computed(
+    monkeypatch,
+    tmp_path,
+):
+    utf8_file = tmp_path / "utf8.xml"
+    utf16_file1 = tmp_path / "utf16_1.xml"
+    utf16_file2 = tmp_path / "utf16_2.xml"
+
+    utf8_file.write_text(
+        "<root/>",
+        encoding="utf-8",
+    )
+
+    utf16_file1.write_text(
+        "<root/>",
+        encoding="utf-16",
+    )
+
+    utf16_file2.write_text(
+        "<root/>",
+        encoding="utf-16",
+    )
+
+    report = tmp_path / "report.html"
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            str(tmp_path),
+            "--html",
+            str(report),
+        ],
+    )
+
+    assert main() == 0
+
+    content = report.read_text(
+        encoding="utf-8",
+    )
+
+    assert "Top Encoding: utf-16" in content

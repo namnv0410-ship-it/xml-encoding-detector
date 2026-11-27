@@ -221,10 +221,13 @@ def main() -> int:
                 f"<p>Valid XML: "
                 f"{valid_count}</p>"
             )
+            top_encoding = max(
+                encodings.items(),
+                key=lambda item: item[1],
+            )[0]
             file.write(
-                "<p>Top Encoding: utf-8</p>"
+                f"<p>Top Encoding: {top_encoding}</p>"
             )
-
             file.write(
                 f"<p>Invalid XML: "
                 f"{invalid_count}</p>"
