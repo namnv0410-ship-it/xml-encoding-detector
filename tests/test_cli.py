@@ -450,8 +450,15 @@ def test_cli_csv_output(
         "test.xml"
         in content
     )
-def test_cli_csv_output(
+
+    assert (
+        "test.xml"
+        in content
+    )
+
+def test_cli_stats_output(
     monkeypatch,
+    capsys,
     tmp_path,
 ):
 
@@ -464,19 +471,13 @@ def test_cli_csv_output(
         "<root></root>"
     )
 
-    report = (
-        tmp_path
-        / "report.csv"
-    )
-
     monkeypatch.setattr(
         sys,
         "argv",
         [
             "xml-encoding-detector",
             str(xml_file),
-            "--csv",
-            str(report),
+            "--stats",
         ],
     )
 
@@ -488,18 +489,23 @@ def test_cli_csv_output(
 
     assert result == 0
 
-    assert report.exists()
-
-    content = report.read_text(
-        encoding="utf-8"
+    output = (
+        capsys
+        .readouterr()
+        .out
     )
 
     assert (
-        "file,valid,encoding,error"
-        in content
+        "Files scanned"
+        in output
     )
 
     assert (
-        "test.xml"
-        in content
+        "Encodings"
+        in output
+    )
+
+    assert (
+        "utf-8"
+        in output
     )

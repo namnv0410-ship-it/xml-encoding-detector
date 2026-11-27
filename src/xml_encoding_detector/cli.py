@@ -43,6 +43,10 @@ def main() -> int:
     recursive_mode = "--recursive" in sys.argv
 
     summary_mode = "--summary" in sys.argv
+    stats_mode = (
+    "--stats"
+    in sys.argv
+)
 
     output_file = None
     csv_file = None
@@ -92,6 +96,7 @@ def main() -> int:
             "--json",
             "--recursive",
             "--summary",
+            "--stats",  
             "--csv",
         ):
 
@@ -189,6 +194,45 @@ def main() -> int:
 
             writer.writerows(
                 results
+            )
+    if stats_mode:
+
+        print(
+            f"Files scanned : "
+            f"{len(results)}"
+        )
+
+        print()
+
+        print(
+            "Encodings"
+        )
+
+        print(
+            "---------"
+        )
+
+        total = sum(
+            encodings.values()
+        )
+
+        for (
+            encoding,
+            count,
+        ) in sorted(
+            encodings.items()
+        ):
+
+            percentage = (
+                count
+                / total
+                * 100
+            )
+
+            print(
+                f"{encoding:<15} "
+                f"{count:<5} "
+                f"({percentage:.1f}%)"
             )
     if summary_mode:
         summary = {
