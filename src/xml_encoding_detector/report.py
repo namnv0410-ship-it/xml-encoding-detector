@@ -9,4 +9,7 @@ def write_html_report(
         "w",
         encoding="utf-8",
     ) as file:
+        file.write(
+           "<html><body>"
+        )
         pass
