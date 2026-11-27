@@ -24,25 +24,42 @@ def write_html_report(
         file.write(
             '<div class="summary-card">'
         )
-
         file.write(
             f"<p>Files Scanned: {len(results)}</p>"
         )
         file.write(
-            f"<p>Valid XML: "
-            f"{valid_count}</p>"
+            "</div>"
+        )
+
+        file.write(
+            '<div class="summary-card">'
         )
         file.write(
-            f"<p>Invalid XML: "
-            f"{invalid_count}</p>"
+            f"<p>Valid XML: {valid_count}</p>"
+        )
+        file.write(
+            "</div>"
+        )
+
+        file.write(
+            '<div class="summary-card">'
+        )
+        file.write(
+            f"<p>Invalid XML: {invalid_count}</p>"
+        )
+        file.write(
+            "</div>"
         )
         top_encoding = max(
             encodings.items(),
             key=lambda item: item[1],
         )[0]
+
         file.write(
-            f"<p>Top Encoding: "
-            f"{top_encoding}</p>"
+            '<div class="summary-card">'
+        )
+        file.write(
+            f"<p>Top Encoding: {top_encoding}</p>"
         )
         file.write(
             "</div>"
