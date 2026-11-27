@@ -908,3 +908,63 @@ def test_html_report_contains_card_title(
     )
 
     assert "<h3>" in content
+def test_html_report_contains_summary_grid(
+    monkeypatch,
+    tmp_path,
+):
+    xml_file = tmp_path / "test.xml"
+
+    xml_file.write_text(
+        "<root></root>"
+    )
+
+    report = tmp_path / "report.html"
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            str(xml_file),
+            "--html",
+            str(report),
+        ],
+    )
+
+    assert main() == 0
+
+    content = report.read_text(
+        encoding="utf-8"
+    )
+
+    assert 'class="summary-grid"' in content
+def test_html_report_contains_summary_grid(
+    monkeypatch,
+    tmp_path,
+):
+    xml_file = tmp_path / "test.xml"
+
+    xml_file.write_text(
+        "<root></root>"
+    )
+
+    report = tmp_path / "report.html"
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            str(xml_file),
+            "--html",
+            str(report),
+        ],
+    )
+
+    assert main() == 0
+
+    content = report.read_text(
+        encoding="utf-8"
+    )
+
+    assert 'class="summary-grid"' in content

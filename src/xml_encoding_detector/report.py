@@ -22,6 +22,9 @@ def write_html_report(
             "<h2>Summary</h2>"
         )
         file.write(
+            '<div class="summary-grid">'
+        )
+        file.write(
             '<div class="summary-card">'
         )
         file.write(
@@ -64,6 +67,9 @@ def write_html_report(
         )
         file.write(
             f"<p>Top Encoding: {top_encoding}</p>"
+        )
+        file.write(
+            "</div>"
         )
         file.write(
             "</div>"
