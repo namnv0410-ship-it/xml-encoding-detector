@@ -11,3 +11,4 @@ build/
 
 .venv/
 *.csv
+report.csv
