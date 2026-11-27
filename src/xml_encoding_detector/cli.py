@@ -240,17 +240,13 @@ def main() -> int:
                 "<th>Percentage</th>"
                 "</tr>"
             )
+            file.write("</table>")
             total = sum(
                 encodings.values()
             )
 
             if total:
-
-                file.write(
-                    "<ul>"
-                )
-                file.write("</table>")
-
+              
                 for (
                     encoding,
                     count,
@@ -265,16 +261,13 @@ def main() -> int:
                     )
 
                     file.write(
-                        "<li>"
-                        f"{encoding}: "
-                        f"{count} "
-                        f"({percentage:.1f}%)"
-                        "</li>"
+                        "<tr>"
+                        f"<td>{encoding}</td>"
+                        f"<td>{count}</td>"
+                        f"<td>{percentage:.1f}%</td>"
+                        "</tr>"
                     )
 
-                file.write(
-                    "</ul>"
-                )
 
             file.write(
                 "<table border='1'>"

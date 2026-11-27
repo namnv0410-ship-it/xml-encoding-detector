@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><?xml-stylesheet type='text/xsl' href='196400_1_K26THM.xslt' ?><HDon>
+  <DLHDon Id="data123">
+    <TTChung>
+      <PBan>2.1.0</PBan>
+      <THDon>Hóa đơn giá trị gia tăng</THDon>
+      <KHMSHDon>1</KHMSHDon>
+      <KHHDon>K26THM</KHHDon>
+      <SHDon>196400</SHDon>
+      <NLap>2026-08-04</NLap>
+      <HDCTTChinh>0</HDCTTChinh>
+      <DVTTe>VND</DVTTe>
+      <TGia>1</TGia>
+      <HTTToan>Chuyển khoản</HTTToan>
+      <MSTTCGP>0101300842</MSTTCGP>
+      <TTKhac>
+        <TTin>
+          <TTruong>Mã TC</TTruong>
+          <KDLieu>string</KDLieu>
+          <DLieu>6NS43AU87Y3</DLieu>
+        </TTin>
+        <TTin>
+          <TTruong>Trang thái DC</TTruong>
+          <KDLieu>string</KDLieu>
+          <DLieu>1</DLieu>
+        </TTin>
+      </TTKhac>
+    </TTChung>
+    <NDHDon>
+      <NBan>
+        <Ten>CÔNG TY HONDA VIỆT NAM</Ten>
+        <MST>2500150543</MST>
+        <DChi>Phường Phúc Yên, tỉnh Phú Thọ, Việt Nam</DChi>
+        <MCHang>MCDLG</MCHang>
+        <TCHang>Phòng vận tải xe máy</TCHang>
+        <SDThoai>(84) 211 3868888</SDThoai>
+        <DCTDTu>acc_lh_nam@honda.com.vn</DCTDTu>
+        <STKNHang></STKNHang>
+        <TNHang></TNHang>
+        <Fax>(84) 211 3868910</Fax>
+      </NBan>
+      <NMua>
+        <Ten>CÔNG TY TNHH XE MÁY NGỌC KHANH</Ten>
+        <MST>2901273567</MST>
+        <DChi>KHỐI 6, XÃ TÂN KỲ, TỈNH NGHỆ AN</DChi>
+        <MKHang>22016</MKHang>
+        <HVTNMHang>CÔNG TY TNHH XE MÁY NGỌC KHANH</HVTNMHang>
+        <TTKhac>
+          <TTin>
+            <TTruong>MuaMR</TTruong>
+            <KDLieu>string</KDLieu>
+            <DLieu>
+              <SPGHang>2608-X-0008101</SPGHang>
+              <DCGHang>KHỐI 6, XÃ TÂN KỲ, TỈNH NGHỆ AN</DCGHang>
+            </DLieu>
+          </TTin>
+        </TTKhac>
+      </NMua>
+      <DSHHDVu>
+        <HHDVu>
+          <TChat>1</TChat>
+          <STT>1</STT>
+          <MHHDVu>NHX125 K2TJ</MHHDVu>
+          <THHDVu>Xe mô tô 2 bánh HONDA JK124 LEAD Mới 100% ĐEN NÂU</THHDVu>
+          <DVTinh>Chiếc</DVTinh>
+          <SLuong>1</SLuong>
+          <DGia>40424243</DGia>
+          <ThTien>40424243</ThTien>
+          <TSuat>8%</TSuat>
+        </HHDVu>
+        <HHDVu>
+          <TChat>1</TChat>
+          <STT>2</STT>
+          <MHHDVu>NSC110 K2CN</MHHDVu>
+          <THHDVu>Xe mô tô 2 bánh HONDA JK037 VISION Mới 100% NÂU XÁM</THHDVu>
+          <DVTinh>Chiếc</DVTinh>
+          <SLuong>1</SLuong>
+          <DGia>30467533</DGia>
+          <ThTien>30467533</ThTien>
+          <TSuat>8%</TSuat>
+        </HHDVu>
+        <HHDVu>
+          <TChat>1</TChat>
+          <STT>3</STT>
+          <MHHDVu>NSC110 K2CN</MHHDVu>
+          <THHDVu>Xe mô tô 2 bánh HONDA JK037 VISION Mới 100% ĐỎ XÁM</THHDVu>
+          <DVTinh>Chiếc</DVTinh>
+          <SLuong>1</SLuong>
+          <DGia>29255411</DGia>
+          <ThTien>29255411</ThTien>
+          <TSuat>8%</TSuat>
+        </HHDVu>
+      </DSHHDVu>
+      <TToan>
+        <THTTLTSuat>
+          <LTSuat>
+            <TSuat>8%</TSuat>
+            <ThTien>100147187</ThTien>
+            <TThue>8011775</TThue>
+          </LTSuat>
+        </THTTLTSuat>
+        <TgTCThue>100147187</TgTCThue>
+        <TgTThue>8011775</TgTThue>
+        <TgTTTBSo>108158962</TgTTTBSo>
+        <TgTTTBChu>Một trăm linh tám triệu một trăm năm mươi tám nghìn chín trăm sáu mươi hai đồng</TgTTTBChu>
+      </TToan>
+    </NDHDon>
+    <TTKhac>
+      <TTin>
+        <TTruong>Loại hiển thị</TTruong>
+        <KDLieu>string</KDLieu>
+        <DLieu>HD</DLieu>
+      </TTin>
+    </TTKhac>
+  </DLHDon>
+  <DSCKS>
+    <NBan>
+      <Signature Id="NBan-data123" xmlns="http://www.w3.org/2000/09/xmldsig#">
+        <SignedInfo>
+          <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+          <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+          <Reference URI="#data123">
+            <Transforms>
+              <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+            </Transforms>
+            <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+            <DigestValue>TJYIZMwKjv3j9pU8YdpRSFLIn84=</DigestValue>
+          </Reference>
+          <Reference URI="#Object-NBan-data123">
+            <Transforms>
+              <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+            </Transforms>
+            <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+            <DigestValue>1UeiANMl/B61jVKYxTZndxsUtTw=</DigestValue>
+          </Reference>
+        </SignedInfo>
+        <SignatureValue>CzPcoxnuUUswPHpItu+gFruz0YyMxhC1PRN7DpTQ/vuD6nYylehlvWDpHAwfxO6gqYF5QczSkj6iH0OacAhWNK2OQZKhBGHeFMLWQk7VJgsrecp6S7vkkjV3Dam0Q8C+q5HkeOkv3evoP085BI51MR89ap16WUjDSyiflGWGoCgR8oHKjgQuYwJiYsR2On6XmOhi+xRO+yRaXD1NnDJYN0foMCpvD2zIHDbyMmsTq7QVXSG5QmcAvBYTubKGF/kH6E2/tSaSFds5zFjeNeMTdUC/cEzwAdh38KeW7bBQrFVfwcbdY3GenO7n12YLDZDkR7zr39G+IHOvNVFeMhb6XQ==</SignatureValue>
+        <KeyInfo>
+          <X509Data>
+            <X509SubjectName>CN=CÔNG TY HONDA VIỆT NAM, O=CÔNG TY HONDA VIỆT NAM, L="Phường Phúc Yên,Tỉnh Phú Thọ, Việt Nam", OID.0.9.2342.19200300.100.1.1=MST:2500150543, C=VN</X509SubjectName>
+            <X509Certificate>MIIFLzCCBBegAwIBAgIQVAK8XKzOZpwgJAACAAmINDANBgkqhkiG9w0BAQsFADAzMQswCQYDVQQGEwJWTjEWMBQGA1UECgwNTkFDRU5DT01NIFNDVDEMMAoGA1UEAwwDQ0EyMB4XDTI2MDcwNjA2MzIyMloXDTI5MDgzMDAzMTU0NlowgbIxCzAJBgNVBAYTAlZOMR4wHAYKCZImiZPyLGQBAQwOTVNUOjI1MDAxNTA1NDMxOzA5BgNVBAcMMlBoxrDhu51uZyBQaMO6YyBZw6puLFThu4luaCBQaMO6IFRo4buNLCBWaeG7h3QgTmFtMSIwIAYDVQQKDBlDw5RORyBUWSBIT05EQSBWSeG7hlQgTkFNMSIwIAYDVQQDDBlDw5RORyBUWSBIT05EQSBWSeG7hlQgTkFNMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqBNhv3y1KKI7EIK4JCEd9/h9DaD2G6j0ey7gwlU2ykDMMLuu7d5LRcpe4uh+O/g4heaE7GfWbS42kGJsr6ctRmwC+Xdh7y0QvhneWSrc4qIU2uB+1NSwmeB+bqincW8PfsNGzKt8N/QiUyZE+qGkCXvjx/TM4F+xtIJ0TeSzeG8aUE4NLD4FaCR7FQzHPeA7Jqpb5DczPLOWQYF65EetfvlZTShLY23cltw4bmgqoPMfFVAb5WraCaz9hMULZSLz4gct6Sjqk3XIdC2gYhTHxMRzOytMXejN9btpO1nUpNZocT0RxKBK1ThnX5bNAkQSkjVR+5dPPDZCY57NewcumQIDAQABo4IBvTCCAbkwHQYDVR0OBBYEFBzChYZVDz88xiK/NA2sBldv64JvMB8GA1UdIwQYMBaAFE3R5NRCuCaJ2TcngAGVMXzVGkRfMCsGA1UdHwQkMCIwIKAeoByGGmh0dHA6Ly9jYXZuLnZuL25ldy9DQTIuY3JsMGkGCCsGAQUFBwEBBF0wWzApBggrBgEFBQcwAYYdaHR0cDovL29jc3AuY2F2bi52bi9vY3NwL29jc3AwLgYIKwYBBQUHMAKGImh0dHA6Ly9jYXZuLnZuL3NoYTI1Ni9DQTJfMjAyNC5jcnQwDgYDVR0PAQH/BAQDAgXgMD0GCSsGAQQBgjcVBwQwMC4GJisGAQQBgjcVCIWPzxCBg58jh7mFMoeKwlCn/3+Be4P40kOE5swMAgFkAgEEMB8GA1UdJQQYMBYGCisGAQQBgjcKAwwGCCsGAQUFBwMEMCkGCSsGAQQBgjcVCgQcMBowDAYKKwYBBAGCNwoDDDAKBggrBgEFBQcDBDBEBgkqhkiG9w0BCQ8ENzA1MA4GCCqGSIb3DQMCAgIAgDAOBggqhkiG9w0DBAICAIAwBwYFKw4DAgcwCgYIKoZIhvcNAwcwDQYJKoZIhvcNAQELBQADggEBAAAgDAOm6mmnh2gHjivBbFgVunWCX21AhBxBbWdXf1c7QGlMeZsAT3I7XXv9wpu3r0CrESlHKdozoFX8YVdSWcRcxFr4GY9mxXYIrHysBP9jV6uXMLgV6g/OUMTZGe1Toy0RtOWxVfhH0D9hjZJnSYX6Xx4sz+WbCcq4XB9qK8QEuz4DZVF036cEXthmRutHToAv/6DgdvG19wYGOyPViZErl8NIXB+BEA+JnTKuYPOwmslhFLGQhYZLMImOi7viZqmKU4Lw26sF1Vnw1w4AxfodCUQlzUyTPAvGED7mhh7wTOCY9KpjCSubWDVsFl770eRO9pqTnJvS3ME3VqACnv8=</X509Certificate>
+          </X509Data>
+        </KeyInfo>
+        <Object Id="Object-NBan-data123">
+          <SignatureProperties xmlns="">
+            <SignatureProperty Id="SignatureProperty-NBan-data123" Target="#NBan-data123">
+              <SigningTime>2026-08-04T16:40:46</SigningTime>
+            </SignatureProperty>
+          </SignatureProperties>
+        </Object>
+      </Signature>
+    </NBan>
+  </DSCKS>
+</HDon>
