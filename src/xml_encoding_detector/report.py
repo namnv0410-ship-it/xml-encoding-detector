@@ -25,7 +25,11 @@ def write_html_report(
             '<div class="summary-card">'
         )
         file.write(
-            f"<p>Files Scanned: {len(results)}</p>"
+            "<h3>Files Scanned</h3>"
+        )
+
+        file.write(
+            f"<p>{len(results)}</p>"
         )
         file.write(
             "</div>"
