@@ -10,6 +10,9 @@ def write_html_report(
         encoding="utf-8",
     ) as file:
         file.write(
-           "<html><body>"
-        )
-        pass
+        "<html><body>"
+    )
+
+        file.write(
+        "<h1>XML Encoding Audit Report</h1>"
+    )
