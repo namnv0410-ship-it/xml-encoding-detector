@@ -14,6 +14,12 @@ def write_html_report(
         file.write(
             "<html><body>"
         )
+        file.write(
+            "<style>"
+            ".summary-grid{display:flex;gap:16px;}"
+            ".summary-card{border:1px solid #ccc;padding:12px;}"
+            "</style>"
+        )
 
         file.write(
             "<h1>XML Encoding Audit Report</h1>"
