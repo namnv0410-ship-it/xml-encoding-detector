@@ -226,7 +226,17 @@ def main() -> int:
             file.write(
                 "<h2>Encoding Distribution</h2>"
             )
+            file.write(
+                "<table border='1'>"
+            )
 
+            file.write(
+                "<tr>"
+                "<th>Encoding</th>"
+                "<th>Count</th>"
+                "<th>Percentage</th>"
+                "</tr>"
+            )
             total = sum(
                 encodings.values()
             )
@@ -236,6 +246,7 @@ def main() -> int:
                 file.write(
                     "<ul>"
                 )
+                file.write("</table>")
 
                 for (
                     encoding,
