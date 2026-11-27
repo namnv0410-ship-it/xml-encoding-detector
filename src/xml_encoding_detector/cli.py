@@ -221,6 +221,9 @@ def main() -> int:
                 f"<p>Valid XML: "
                 f"{valid_count}</p>"
             )
+            file.write(
+                "<p>Top Encoding: utf-8</p>"
+            )
 
             file.write(
                 f"<p>Invalid XML: "
