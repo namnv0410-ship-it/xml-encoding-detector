@@ -1,3 +1,31 @@
+0.4.0
+
+Added
+
+Output file support via --output
+
+CSV export via --csv
+
+Statistics mode via --stats
+
+Quality
+
+41 automated tests
+
+98% coverage
+
+Ruff linting
+
+Ruff formatting
+
+CLI
+
+JSON reports
+
+CSV reports
+
+Encoding statistics
+
 0.4.0 (Unreleased)
 
 Added
