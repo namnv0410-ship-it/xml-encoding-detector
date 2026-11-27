@@ -1,3 +1,9 @@
+0.4.0 (Unreleased)
+
+Added
+
+Output file support via --output
+
 0.3.0
 
 Added
