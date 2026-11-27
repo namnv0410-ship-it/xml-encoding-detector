@@ -219,7 +219,6 @@ def main() -> int:
 
             file.write(
                 f"<p>Files Scanned: {len(results)}</p>"
-                f"{len(results)}</p>"
             )
             file.write(
                 f"<p>Valid XML: "
