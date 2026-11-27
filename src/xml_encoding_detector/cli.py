@@ -199,6 +199,7 @@ def main() -> int:
 
             writer.writerows(results)
     if html_file:
+        print(f"Writing HTML report to: {html_file}")
         write_html_report(
             html_file,
             results,
@@ -278,3 +279,5 @@ def main() -> int:
         return 1
 
     return 0
+if __name__ == "__main__":
+    raise SystemExit(main())

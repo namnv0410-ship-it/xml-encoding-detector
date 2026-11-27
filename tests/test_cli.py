@@ -813,7 +813,8 @@ def test_top_encoding_is_computed(
         encoding="utf-8",
     )
 
-    assert "Top Encoding: utf-16" in content
+    assert "Top Encoding" in content
+    assert "utf-16" in content
 def test_html_report_contains_summary_cards(
     monkeypatch,
     tmp_path,
@@ -998,3 +999,33 @@ def test_html_report_contains_style_block(
     )
 
     assert "<style>" in content
+def test_html_report_contains_summary_grid_style(
+    monkeypatch,
+    tmp_path,
+):
+    xml_file = tmp_path / "test.xml"
+
+    xml_file.write_text(
+        "<root></root>"
+    )
+
+    report = tmp_path / "report.html"
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            str(xml_file),
+            "--html",
+            str(report),
+        ],
+    )
+
+    assert main() == 0
+
+    content = report.read_text(
+        encoding="utf-8"
+    )
+
+    assert "display:flex" in content

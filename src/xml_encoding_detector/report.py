@@ -12,12 +12,17 @@ def write_html_report(
         encoding="utf-8",
     ) as file:
         file.write(
-            "<html><body>"
+            "<html><head>"
         )
         file.write(
             "<style>"
-            ".summary-grid{display:flex;gap:16px;}"
-            ".summary-card{border:1px solid #ccc;padding:12px;}"
+            "body{font-family:Arial,sans-serif;padding:20px;}"
+            ".summary-grid{display:flex;gap:16px;flex-wrap:wrap;}"
+            ".summary-card{border:1px solid #ccc;padding:16px;min-width:180px;text-align:center;border-radius:8px;background:#f8f9fa;}"
+            ".summary-card h3{margin:0;font-size:16px;}"
+            ".summary-card p{font-size:36px;font-weight:bold;margin:12px 0 0 0;color:#0b5ed7;}"
+            "table{border-collapse:collapse;}"
+            "th,td{padding:8px;}"
             "</style>"
         )
 
@@ -48,7 +53,11 @@ def write_html_report(
             '<div class="summary-card">'
         )
         file.write(
-            f"<p>Valid XML: {valid_count}</p>"
+            "<h3>Valid XML</h3>"
+        )
+
+        file.write(
+             f"<p>{valid_count}</p>"
         )
         file.write(
             "</div>"
@@ -58,7 +67,11 @@ def write_html_report(
             '<div class="summary-card">'
         )
         file.write(
-            f"<p>Invalid XML: {invalid_count}</p>"
+            "<h3>Invalid XML</h3>"
+        )
+
+        file.write(
+            f"<p>{invalid_count}</p>"
         )
         file.write(
             "</div>"
@@ -72,7 +85,11 @@ def write_html_report(
             '<div class="summary-card">'
         )
         file.write(
-            f"<p>Top Encoding: {top_encoding}</p>"
+            "<h3>Top Encoding</h3>"
+        )
+
+        file.write(
+            f"<p>{top_encoding}</p>"
         )
         file.write(
             "</div>"
