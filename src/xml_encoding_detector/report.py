@@ -4,4 +4,9 @@ def write_html_report(
     results,
     encodings,
 ) -> None:
-    pass
+    with open(
+        report_file,
+        "w",
+        encoding="utf-8",
+    ) as file:
+        pass
