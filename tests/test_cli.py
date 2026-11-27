@@ -520,3 +520,41 @@ def test_cli_html_output(
         "test.xml"
         in content
     )
+def test_html_report_contains_encoding_distribution(
+    monkeypatch,
+    tmp_path,
+):
+    xml_file = (
+        tmp_path
+        / "test.xml"
+    )
+
+    xml_file.write_text(
+        "<root></root>"
+    )
+
+    report = (
+        tmp_path
+        / "report.html"
+    )
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            str(xml_file),
+            "--html",
+            str(report),
+        ],
+    )
+
+    result = main()
+
+    assert result == 0
+
+    content = report.read_text(
+        encoding="utf-8"
+    )
+
+    assert "Encoding Distribution" in content

@@ -214,6 +214,53 @@ def main() -> int:
                 f"<p>Files scanned: "
                 f"{len(results)}</p>"
             )
+            file.write(
+                f"<p>Valid XML: "
+                f"{valid_count}</p>"
+            )
+
+            file.write(
+                f"<p>Invalid XML: "
+                f"{invalid_count}</p>"
+            )
+            file.write(
+                "<h2>Encoding Distribution</h2>"
+            )
+
+            total = sum(
+                encodings.values()
+            )
+
+            if total:
+
+                file.write(
+                    "<ul>"
+                )
+
+                for (
+                    encoding,
+                    count,
+                ) in sorted(
+                    encodings.items()
+                ):
+
+                    percentage = (
+                        count
+                        / total
+                        * 100
+                    )
+
+                    file.write(
+                        "<li>"
+                        f"{encoding}: "
+                        f"{count} "
+                        f"({percentage:.1f}%)"
+                        "</li>"
+                    )
+
+                file.write(
+                    "</ul>"
+                )
 
             file.write(
                 "<table border='1'>"

@@ -1,0 +1,81 @@
+Folder PATH listing for volume OS
+Volume serial number is EC4A-9DD6
+C:.
+¦   .coverage
+¦   .gitignore
+¦   broken.xml
+¦   CHANGELOG.md
+¦   LICENSE
+¦   pyproject.toml
+¦   README.md
+¦   report.csv
+¦   report.html
+¦   report.json
+¦   structure.txt
+¦   test.xml
+¦   
++---.github
+¦   +---workflows
+¦           publish.yml
+¦           pytest.yml
+¦           
++---.pytest_cache
+¦   ¦   .gitignore
+¦   ¦   CACHEDIR.TAG
+¦   ¦   README.md
+¦   ¦   
+¦   +---v
+¦       +---cache
+¦               lastfailed
+¦               nodeids
+¦               
++---.ruff_cache
+¦   ¦   .gitignore
+¦   ¦   CACHEDIR.TAG
+¦   ¦   
+¦   +---0.17.6
+¦           3464742306374162588
+¦           4343987158085144505
+¦           8227396189234706483
+¦           
++---dist
+¦       xml_encoding_detector-0.1.0-py3-none-any.whl
+¦       xml_encoding_detector-0.1.0.tar.gz
+¦       
++---samples
+¦   ¦   a.xml
+¦   ¦   b.xml
+¦   ¦   
+¦   +---nested
+¦           c.xml
+¦           
++---src
+¦   +---xml_encoding_detector
+¦   ¦   ¦   cli.py
+¦   ¦   ¦   detector.py
+¦   ¦   ¦   __init__.py
+¦   ¦   ¦   
+¦   ¦   +---__pycache__
+¦   ¦           cli.cpython-312.pyc
+¦   ¦           detector.cpython-312.pyc
+¦   ¦           __init__.cpython-312.pyc
+¦   ¦           
+¦   +---xml_encoding_detector.egg-info
+¦           .gitignore.txt
+¦           dependency_links.txt
+¦           entry_points.txt
+¦           PKG-INFO
+¦           requires.txt
+¦           SOURCES.txt
+¦           top_level.txt
+¦           
++---tests
+    ¦   test_cli.py
+    ¦   test_detector.py
+    ¦   test_detector.py.txt
+    ¦   
+    +---__pycache__
+            test_cli.cpython-312-pytest-9.2.0.pyc
+            test_cli.cpython-312.pyc
+            test_detector.cpython-312-pytest-9.2.0.pyc
+            

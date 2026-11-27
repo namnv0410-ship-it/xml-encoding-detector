@@ -1,0 +1,9 @@
+from xml_encoding_detector.report import (
+    build_encoding_statistics,
+)
+
+
+def test_build_encoding_statistics_empty() -> None:
+    stats = build_encoding_statistics([])
+
+    assert stats == []
