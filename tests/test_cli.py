@@ -345,24 +345,18 @@ def test_cli_invalid_xml_exit_code(
     result = main()
 
     assert result == 1
+
+
 def test_cli_output_file(
     monkeypatch,
     tmp_path,
 ):
 
-    xml_file = (
-        tmp_path
-        / "test.xml"
-    )
+    xml_file = tmp_path / "test.xml"
 
-    xml_file.write_text(
-        "<root></root>"
-    )
+    xml_file.write_text("<root></root>")
 
-    report = (
-        tmp_path
-        / "report.json"
-    )
+    report = tmp_path / "report.json"
 
     monkeypatch.setattr(
         sys,
@@ -387,34 +381,21 @@ def test_cli_output_file(
 
     assert report.exists()
 
-    content = (
-        report.read_text(
-            encoding="utf-8"
-        )
-    )
+    content = report.read_text(encoding="utf-8")
 
-    assert (
-        '"files_scanned"'
-        in content
-    )
+    assert '"files_scanned"' in content
+
+
 def test_cli_csv_output(
     monkeypatch,
     tmp_path,
 ):
 
-    xml_file = (
-        tmp_path
-        / "test.xml"
-    )
+    xml_file = tmp_path / "test.xml"
 
-    xml_file.write_text(
-        "<root></root>"
-    )
+    xml_file.write_text("<root></root>")
 
-    report = (
-        tmp_path
-        / "report.csv"
-    )
+    report = tmp_path / "report.csv"
 
     monkeypatch.setattr(
         sys,
@@ -437,24 +418,14 @@ def test_cli_csv_output(
 
     assert report.exists()
 
-    content = report.read_text(
-        encoding="utf-8"
-    )
+    content = report.read_text(encoding="utf-8")
 
-    assert (
-        "file,valid,encoding,error"
-        in content
-    )
+    assert "file,valid,encoding,error" in content
 
-    assert (
-        "test.xml"
-        in content
-    )
+    assert "test.xml" in content
 
-    assert (
-        "test.xml"
-        in content
-    )
+    assert "test.xml" in content
+
 
 def test_cli_stats_output(
     monkeypatch,
@@ -462,14 +433,9 @@ def test_cli_stats_output(
     tmp_path,
 ):
 
-    xml_file = (
-        tmp_path
-        / "test.xml"
-    )
+    xml_file = tmp_path / "test.xml"
 
-    xml_file.write_text(
-        "<root></root>"
-    )
+    xml_file.write_text("<root></root>")
 
     monkeypatch.setattr(
         sys,
@@ -489,23 +455,10 @@ def test_cli_stats_output(
 
     assert result == 0
 
-    output = (
-        capsys
-        .readouterr()
-        .out
-    )
+    output = capsys.readouterr().out
 
-    assert (
-        "Files scanned"
-        in output
-    )
+    assert "Files scanned" in output
 
-    assert (
-        "Encodings"
-        in output
-    )
+    assert "Encodings" in output
 
-    assert (
-        "utf-8"
-        in output
-    )
+    assert "utf-8" in output

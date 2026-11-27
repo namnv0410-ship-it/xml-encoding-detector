@@ -43,10 +43,7 @@ def main() -> int:
     recursive_mode = "--recursive" in sys.argv
 
     summary_mode = "--summary" in sys.argv
-    stats_mode = (
-    "--stats"
-    in sys.argv
-)
+    stats_mode = "--stats" in sys.argv
 
     output_file = None
     csv_file = None
@@ -57,38 +54,25 @@ def main() -> int:
         if index + 1 < len(sys.argv):
             output_file = sys.argv[index + 1]
     if "--csv" in sys.argv:
+        index = sys.argv.index("--csv")
 
-        index = sys.argv.index(
-            "--csv"
-        )
-
-        if (
-            index + 1
-            < len(sys.argv)
-        ):
-
-            csv_file = sys.argv[
-                index + 1
-            ]
+        if index + 1 < len(sys.argv):
+            csv_file = sys.argv[index + 1]
 
     skip_next = False
 
     inputs = []
 
     for arg in sys.argv[1:]:
-
         if skip_next:
-
             skip_next = False
             continue
 
         if arg == "--output":
-
             skip_next = True
             continue
 
         if arg == "--csv":
-
             skip_next = True
             continue
 
@@ -96,10 +80,9 @@ def main() -> int:
             "--json",
             "--recursive",
             "--summary",
-            "--stats",  
+            "--stats",
             "--csv",
         ):
-
             continue
 
         inputs.append(arg)
@@ -172,14 +155,12 @@ def main() -> int:
         if not json_mode and not summary_mode:
             print(f"{path.name}: valid={result.valid}, encoding={result.encoding}")
     if csv_file:
-
         with open(
             csv_file,
             "w",
             newline="",
             encoding="utf-8",
         ) as file:
-
             writer = csv.DictWriter(
                 file,
                 fieldnames=[
@@ -192,48 +173,25 @@ def main() -> int:
 
             writer.writeheader()
 
-            writer.writerows(
-                results
-            )
+            writer.writerows(results)
     if stats_mode:
-
-        print(
-            f"Files scanned : "
-            f"{len(results)}"
-        )
+        print(f"Files scanned : {len(results)}")
 
         print()
 
-        print(
-            "Encodings"
-        )
+        print("Encodings")
 
-        print(
-            "---------"
-        )
+        print("---------")
 
-        total = sum(
-            encodings.values()
-        )
+        total = sum(encodings.values())
 
         for (
             encoding,
             count,
-        ) in sorted(
-            encodings.items()
-        ):
+        ) in sorted(encodings.items()):
+            percentage = count / total * 100
 
-            percentage = (
-                count
-                / total
-                * 100
-            )
-
-            print(
-                f"{encoding:<15} "
-                f"{count:<5} "
-                f"({percentage:.1f}%)"
-            )
+            print(f"{encoding:<15} {count:<5} ({percentage:.1f}%)")
     if summary_mode:
         summary = {
             "files_scanned": len(results),
