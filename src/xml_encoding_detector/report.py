@@ -21,6 +21,9 @@ def write_html_report(
         file.write(
             "<h2>Summary</h2>"
         )
+        file.write(
+            '<div class="summary-card">'
+        )
 
         file.write(
             f"<p>Files Scanned: {len(results)}</p>"
@@ -40,6 +43,9 @@ def write_html_report(
         file.write(
             f"<p>Top Encoding: "
             f"{top_encoding}</p>"
+        )
+        file.write(
+            "</div>"
         )
         file.write(
             "<h2>Encoding Distribution</h2>"
