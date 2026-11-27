@@ -462,3 +462,61 @@ def test_cli_stats_output(
     assert "Encodings" in output
 
     assert "utf-8" in output
+def test_cli_html_output(
+    monkeypatch,
+    tmp_path,
+):
+
+    xml_file = (
+        tmp_path
+        / "test.xml"
+    )
+
+    xml_file.write_text(
+        "<root></root>"
+    )
+
+    report = (
+        tmp_path
+        / "report.html"
+    )
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            str(xml_file),
+            "--html",
+            str(report),
+        ],
+    )
+
+    from xml_encoding_detector.cli import (
+        main,
+    )
+
+    result = main()
+
+    assert result == 0
+
+    assert report.exists()
+
+    content = report.read_text(
+        encoding="utf-8"
+    )
+
+    assert (
+        "XML Encoding Audit Report"
+        in content
+    )
+
+    assert (
+        "<table"
+        in content
+    )
+
+    assert (
+        "test.xml"
+        in content
+    )

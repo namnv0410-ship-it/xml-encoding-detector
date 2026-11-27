@@ -47,6 +47,7 @@ def main() -> int:
 
     output_file = None
     csv_file = None
+    html_file = None
 
     if "--output" in sys.argv:
         index = sys.argv.index("--output")
@@ -58,6 +59,20 @@ def main() -> int:
 
         if index + 1 < len(sys.argv):
             csv_file = sys.argv[index + 1]
+    if "--html" in sys.argv:
+
+        index = sys.argv.index(
+            "--html"
+        )
+
+        if (
+            index + 1
+            < len(sys.argv)
+        ):
+
+            html_file = sys.argv[
+                index + 1
+            ] 
 
     skip_next = False
 
@@ -75,6 +90,10 @@ def main() -> int:
         if arg == "--csv":
             skip_next = True
             continue
+        if arg == "--html":
+
+            skip_next = True
+            continue
 
         if arg in (
             "--json",
@@ -82,6 +101,7 @@ def main() -> int:
             "--summary",
             "--stats",
             "--csv",
+            "--html",
         ):
             continue
 
@@ -174,6 +194,56 @@ def main() -> int:
             writer.writeheader()
 
             writer.writerows(results)
+    if html_file:
+
+        with open(
+            html_file,
+            "w",
+            encoding="utf-8",
+        ) as file:
+
+            file.write(
+                "<html><body>"
+            )
+
+            file.write(
+                "<h1>XML Encoding Audit Report</h1>"
+            )
+
+            file.write(
+                f"<p>Files scanned: "
+                f"{len(results)}</p>"
+            )
+
+            file.write(
+                "<table border='1'>"
+            )
+
+            file.write(
+                "<tr>"
+                "<th>File</th>"
+                "<th>Encoding</th>"
+                "<th>Valid</th>"
+                "</tr>"
+            )
+
+            for result in results:
+
+                file.write(
+                    "<tr>"
+                    f"<td>{result['file']}</td>"
+                    f"<td>{result['encoding']}</td>"
+                    f"<td>{result['valid']}</td>"
+                    "</tr>"
+                )
+
+            file.write(
+                "</table>"
+            )
+
+            file.write(
+                "</body></html>"
+            )
     if stats_mode:
         print(f"Files scanned : {len(results)}")
 
