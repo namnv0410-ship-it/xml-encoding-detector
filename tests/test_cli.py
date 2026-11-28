@@ -1149,7 +1149,7 @@ def test_stats_contains_top_encoding(
     output = capsys.readouterr().out
 
     assert "Top Encoding" in output
-def test_html_report_contains_top_encoding(
+def test_html_report_contains_top_encoding_card(
     monkeypatch,
     tmp_path,
 ):

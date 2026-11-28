@@ -156,3 +156,5 @@ xml-encoding-detector sample \\
 
 &#x20; --output report.md
 
+Features
+
