@@ -194,4 +194,15 @@ xml-encoding-detector sample \
   --stats \
   --csv \
   --output stats.csv
+Statistics CSV Export
+xml-encoding-detector sample \
+  --stats \
+  --csv \
+  --output stats.csv
+Example output:
+
+encoding,count,percentage
+utf-8,30,71.4
+utf-16,8,19.0
+cp1258,4,9.5
 

@@ -2,7 +2,15 @@
 XML Encoding Detector GUI
 """
 
-from tkinter import filedialog
+from tkinter import (
+    filedialog,
+    messagebox,
+)
+from pathlib import Path
+from xml_encoding_detector.detector import (
+    detect_encoding,
+    validate_xml,
+)
 import tkinter as tk
 from tkinter import ttk
 
@@ -167,15 +175,36 @@ class XMLDetectorApp:
                 anchor="w",
             )
 
-        ttk.Button(
-            frame,
-            text="Scan",
-            command=self.scan,
-        ).pack(
+        button_frame = ttk.Frame(
+            frame
+        )
+
+        button_frame.pack(
             fill="x",
             pady=15,
         )
 
+        ttk.Button(
+            button_frame,
+            text="Scan",
+            command=self.scan,
+        ).pack(
+            side="left",
+            fill="x",
+            expand=True,
+        )
+
+        ttk.Button(
+            button_frame,
+            text="Export",
+            command=self.export_report,
+        ).pack(
+            side="left",
+            fill="x",
+            expand=True,
+            padx=(5, 0),
+        )
+        
     def _build_stats_panel(
         self,
         parent: ttk.Frame,
@@ -266,6 +295,27 @@ class XMLDetectorApp:
                 column,
                 text=column.title(),
             )
+        self.table.column(
+            "file",
+            width=350,
+        )
+
+        self.table.column(
+            "valid",
+            width=100,
+            anchor="center",
+        )
+
+        self.table.column(
+            "encoding",
+            width=120,
+            anchor="center",
+        )
+
+        self.table.column(
+            "error",
+            width=400,
+        )
 
         self.table.pack(
             fill="both",
@@ -299,16 +349,139 @@ class XMLDetectorApp:
     def scan(
         self,
     ) -> None:
+        folder = self.folder_var.get()
+
+        if not folder:
+            self.status.config(
+                text="Please select a folder."
+            )
+            return
+
         self.status.config(
             text="Scanning..."
         )
+        self.table.delete(
+            *self.table.get_children()
+        )
+        files_scanned = 0
+        valid_xml = 0
+        invalid_xml = 0
+        encodings = {}
+        pattern = (
+            "**/*.xml"
+            if self.recursive_var.get()
+            else "*.xml"
+        )
 
-        # TODO:
-        # connect detector logic
+        for xml_file in Path(folder).glob(
+            pattern
+        ):
+            files_scanned += 1
 
+            data = xml_file.read_bytes()
+
+            validation = validate_xml(
+                data
+            )
+            if validation.valid:
+                valid_xml += 1
+            else:
+                invalid_xml += 1
+
+            encoding = (
+                validation.encoding
+                or "unknown"
+            )
+            encodings[
+                encoding
+            ] = (
+                encodings.get(
+                    encoding,
+                    0,
+                )
+                + 1
+            )
+
+            self.table.insert(
+                "",
+                "end",
+                values=(
+                    xml_file.name,
+                    validation.valid,
+                    encoding,
+                    validation.error or "",
+                ),
+            )
+                
+            self.valid_label.config(
+                text=f"Valid XML: {valid_xml}"
+            )
+
+            self.invalid_label.config(
+                text=f"Invalid XML: {invalid_xml}"
+            )
+            top_encoding = (
+                max(
+                    encodings,
+                    key=encodings.get,
+                )
+                if encodings
+                else "N/A"
+            )
+
+            self.encoding_label.config(
+                text=f"Top Encoding: {top_encoding}"
+            )
+        self.files_label.config(
+            text=f"Files Scanned: {files_scanned}"
+        )
         self.status.config(
             text="Scan complete"
         )
+    def export_report(
+        self,
+    ) -> None:
+        output_format = (
+            self.output_format.get()
+        )
+
+        extension = {
+            "html": ".html",
+            "csv": ".csv",
+            "json": ".json",
+            "markdown": ".md",
+        }[output_format]
+
+        output_file = (
+            filedialog.asksaveasfilename(
+                defaultextension=extension,
+                filetypes=[
+                    (
+                        f"{output_format.upper()} files",
+                        f"*{extension}",
+                    ),
+                ],
+            )
+        )
+
+        if not output_file:
+            return
+
+        messagebox.showinfo(
+            "Export",
+            (
+                f"Export {output_format.upper()} "
+                f"to:\n{output_file}"
+            ),
+        )
+
+        self.status.config(
+            text=(
+                f"Exported "
+                f"{output_format.upper()}"
+            )
+        )
+
 
 
 def main() -> None:
