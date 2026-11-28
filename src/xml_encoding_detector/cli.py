@@ -217,6 +217,13 @@ def main() -> int:
         top_encoding = (
             encodings.most_common(1)[0][0]
         )
+        stats_data = {
+            "files_scanned": len(results),
+            "valid_xml": valid_count,
+            "invalid_xml": invalid_count,
+            "top_encoding": top_encoding,
+            "encodings": dict(encodings),
+        }
 
         print(
             f"Top Encoding  : {top_encoding}"
@@ -225,6 +232,20 @@ def main() -> int:
         print()
         print("Encodings")
         print("---------")
+        if (
+            json_mode
+            and output_file
+        ):
+            with open(
+                output_file,
+                "w",
+                encoding="utf-8",
+            ) as file:
+                json.dump(
+                    stats_data,
+                    file,
+                    indent=2,
+                )
 
         total = sum(
             encodings.values()
@@ -281,7 +302,7 @@ def main() -> int:
             ) in encodings.items():
                 print(f"{encoding:<15} {count}")
 
-    elif json_mode:
+    elif json_mode and not stats_mode:
         content = json.dumps(
             results,
             indent=2,

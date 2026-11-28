@@ -102,3 +102,35 @@ License
 
 MIT
 
+Statistics
+
+xml-encoding-detector sample --stats
+
+Example output:
+
+
+
+Encoding Statistics
+
+===================
+
+
+
+Files scanned : 42
+
+Valid XML     : 40
+
+Invalid XML   : 2
+
+
+
+Top Encoding  : utf-8
+
+
+
+utf-8         30 (71.4%)
+
+utf-16        8 (19.0%)
+
+cp1258        4 (9.5%)
+

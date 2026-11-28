@@ -1,3 +1,4 @@
+import json
 import sys
 
 from xml_encoding_detector.cli import (
@@ -1180,3 +1181,38 @@ def test_html_report_contains_top_encoding(
     )
 
     assert "Top Encoding" in content
+def test_stats_json_export(
+    monkeypatch,
+    tmp_path,
+):
+    xml_file = tmp_path / "test.xml"
+
+    xml_file.write_text(
+        "<root/>",
+        encoding="utf-8",
+    )
+
+    report = tmp_path / "stats.json"
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            str(xml_file),
+            "--stats",
+            "--json",
+            "--output",
+            str(report),
+        ],
+    )
+
+    assert main() == 0
+
+    content = json.loads(
+        report.read_text(
+            encoding="utf-8"
+        )
+    )
+
+    assert "top_encoding" in content
