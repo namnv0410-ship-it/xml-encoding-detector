@@ -1092,3 +1092,32 @@ def test_output_file_not_scanned(
     content = report.read_text(encoding="utf-8")
 
     assert "report.csv" not in content
+
+
+def test_stats_output(
+    monkeypatch,
+    tmp_path,
+    capsys,
+):
+    xml_file = tmp_path / "test.xml"
+
+    xml_file.write_text(
+        "<root/>",
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            str(xml_file),
+            "--stats",
+        ],
+    )
+
+    assert main() == 0
+
+    output = capsys.readouterr().out
+
+    assert "Encoding Statistics" in output

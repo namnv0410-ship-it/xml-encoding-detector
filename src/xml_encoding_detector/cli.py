@@ -43,6 +43,7 @@ def main() -> int:
         return 2
 
     json_mode = "--json" in sys.argv
+    stats_mode = "--stats" in sys.argv
 
     recursive_mode = "--recursive" in sys.argv
 
@@ -150,6 +151,22 @@ def main() -> int:
 
         if not json_mode and not summary_mode:
             print(f"{path.name}: valid={result.valid}, encoding={result.encoding}")
+        if stats_mode:
+            encoding_list = [
+                result["encoding"] for result in results if result["encoding"]
+            ]
+
+            counts = Counter(encoding_list)
+
+            print()
+            print("Encoding Statistics")
+            print("===================")
+            total = sum(counts.values())
+
+            for encoding, count in counts.items():
+                percentage = count / total * 100
+
+                print(f"{encoding}: {count} ({percentage:.1f}%)")
     if csv_mode and output_file:
         with open(
             output_file,
@@ -170,12 +187,8 @@ def main() -> int:
             writer.writeheader()
 
             writer.writerows(results)
-        print(
-            f"DEBUG html_mode={html_mode}"
-        )
-        print(
-            f"DEBUG output_file={output_file}"
-        )
+        print(f"DEBUG html_mode={html_mode}")
+        print(f"DEBUG output_file={output_file}")
     if html_mode and output_file:
         print(f"Writing HTML report to: {output_file}")
         write_html_report(
@@ -195,7 +208,7 @@ def main() -> int:
 
         print("---------")
 
-        total = sum(encodings.values())
+        total = sum(counts.values())
 
         for (
             encoding,
