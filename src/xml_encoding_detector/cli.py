@@ -6,6 +6,7 @@ from collections import Counter
 from pathlib import Path
 
 from xml_encoding_detector import validate_xml
+
 from .report import (
     write_html_report,
 )
