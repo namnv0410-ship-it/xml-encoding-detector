@@ -1,6 +1,6 @@
 """HTML reporting."""
 
-
+import csv
 def write_html_report(
     report_file,
     results,
@@ -104,3 +104,75 @@ def write_html_report(
             )
         file.write("</table>")
         file.write("</body></html>")
+
+def write_csv_report(
+    report_file,
+    results,
+) -> None:
+    with open(
+        report_file,
+        "w",
+        newline="",
+        encoding="utf-8",
+    ) as file:
+        writer = csv.DictWriter(
+            file,
+            fieldnames=[
+                "file",
+                "encoding",
+                "valid",
+                "error",
+            ],
+        )
+
+        writer.writeheader()
+
+        writer.writerows(
+            results
+        )
+def write_markdown_report(
+    report_file,
+    results,
+    valid_count,
+    invalid_count,
+) -> None:
+    with open(
+        report_file,
+        "w",
+        encoding="utf-8",
+    ) as file:
+        file.write(
+            "# XML Encoding Report\n\n"
+        )
+
+        file.write(
+            "## Summary\n\n"
+        )
+
+        file.write(
+            f"- Valid XML: {valid_count}\n"
+        )
+
+        file.write(
+            f"- Invalid XML: {invalid_count}\n\n"
+        )
+
+        file.write(
+            "## File Results\n\n"
+        )
+
+        file.write(
+            "| File | Encoding | Valid |\n"
+        )
+
+        file.write(
+            "|------|----------|-------|\n"
+        )
+
+        for result in results:
+            file.write(
+                f"| "
+                f"{result['file']} | "
+                f"{result['encoding']} | "
+                f"{result['valid']} |\n"
+            )

@@ -14,6 +14,8 @@ from xml_encoding_detector.detector import (
 
 from xml_encoding_detector.report import (
     write_html_report,
+    write_csv_report,
+    write_markdown_report,
 )
 import tkinter as tk
 from tkinter import ttk
@@ -502,6 +504,37 @@ class XMLDetectorApp:
                 self.valid_count,
                 self.invalid_count,
             )
+        elif output_format == "csv":
+            print(
+                "CSV RESULTS:",
+                self.results,
+            )
+            write_csv_report(
+                output_file,
+                self.results,
+            )
+        elif output_format == "json":
+            import json
+
+            with open(
+                output_file,
+                "w",
+                encoding="utf-8",
+            ) as file:
+                json.dump(
+                    self.results,
+                    file,
+                    indent=2,
+                    ensure_ascii=False,
+                 )
+        elif output_format == "markdown":
+             write_markdown_report(
+                output_file,
+                self.results,
+                self.valid_count,
+                self.invalid_count,
+            )
+
 
         messagebox.showinfo(
             "Export",
