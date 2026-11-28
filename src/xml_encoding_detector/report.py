@@ -1,4 +1,6 @@
 """HTML reporting."""
+
+
 def write_html_report(
     report_file,
     results,
@@ -11,9 +13,7 @@ def write_html_report(
         "w",
         encoding="utf-8",
     ) as file:
-        file.write(
-            "<html><head>"
-        )
+        file.write("<html><head>")
         file.write(
             "<style>"
             "body{font-family:Arial,sans-serif;padding:20px;}"
@@ -26,106 +26,48 @@ def write_html_report(
             "</style>"
         )
 
-        file.write(
-            "<h1>XML Encoding Audit Report</h1>"
-        )
-        file.write(
-            "<h2>Summary</h2>"
-        )
-        file.write(
-            '<div class="summary-grid">'
-        )
-        file.write(
-            '<div class="summary-card">'
-        )
-        file.write(
-            "<h3>Files Scanned</h3>"
-        )
+        file.write("<h1>XML Encoding Audit Report</h1>")
+        file.write("<h2>Summary</h2>")
+        file.write('<div class="summary-grid">')
+        file.write('<div class="summary-card">')
+        file.write("<h3>Files Scanned</h3>")
 
-        file.write(
-            f"<p>{len(results)}</p>"
-        )
-        file.write(
-            "</div>"
-        )
+        file.write(f"<p>{len(results)}</p>")
+        file.write("</div>")
 
-        file.write(
-            '<div class="summary-card">'
-        )
-        file.write(
-            "<h3>Valid XML</h3>"
-        )
+        file.write('<div class="summary-card">')
+        file.write("<h3>Valid XML</h3>")
 
-        file.write(
-             f"<p>{valid_count}</p>"
-        )
-        file.write(
-            "</div>"
-        )
+        file.write(f"<p>{valid_count}</p>")
+        file.write("</div>")
 
-        file.write(
-            '<div class="summary-card">'
-        )
-        file.write(
-            "<h3>Invalid XML</h3>"
-        )
+        file.write('<div class="summary-card">')
+        file.write("<h3>Invalid XML</h3>")
 
-        file.write(
-            f"<p>{invalid_count}</p>"
-        )
-        file.write(
-            "</div>"
-        )
+        file.write(f"<p>{invalid_count}</p>")
+        file.write("</div>")
         top_encoding = max(
             encodings.items(),
             key=lambda item: item[1],
         )[0]
 
-        file.write(
-            '<div class="summary-card">'
-        )
-        file.write(
-            "<h3>Top Encoding</h3>"
-        )
+        file.write('<div class="summary-card">')
+        file.write("<h3>Top Encoding</h3>")
 
-        file.write(
-            f"<p>{top_encoding}</p>"
-        )
-        file.write(
-            "</div>"
-        )
-        file.write(
-            "</div>"
-        )
-        file.write(
-            "<h2>Encoding Distribution</h2>"
-        )
-        file.write(
-            "<table border='1'>"
-        )
+        file.write(f"<p>{top_encoding}</p>")
+        file.write("</div>")
+        file.write("</div>")
+        file.write("<h2>Encoding Distribution</h2>")
+        file.write("<table border='1'>")
 
-        file.write(
-            "<tr>"
-            "<th>Encoding</th>"
-            "<th>Count</th>"
-            "<th>Percentage</th>"
-            "</tr>"
-        )
-        total = sum(
-            encodings.values()
-        )
+        file.write("<tr><th>Encoding</th><th>Count</th><th>Percentage</th></tr>")
+        total = sum(encodings.values())
 
         for (
             encoding,
             count,
-        ) in sorted(
-            encodings.items()
-        ):
-            percentage = (
-                count
-                / total
-                * 100
-            )
+        ) in sorted(encodings.items()):
+            percentage = count / total * 100
 
             file.write(
                 "<tr>"
@@ -133,23 +75,13 @@ def write_html_report(
                 f"<td>{count}</td>"
                 f"<td>{percentage:.1f}%</td>"
                 "</tr>"
-            )        
+            )
         file.write("</table>")
-        file.write(
-            "<h2>File Results</h2>"
-        )
+        file.write("<h2>File Results</h2>")
 
-        file.write(
-            "<table border='1'>"
-        )
+        file.write("<table border='1'>")
 
-        file.write(
-            "<tr>"
-            "<th>File</th>"
-            "<th>Encoding</th>"
-            "<th>Valid</th>"
-            "</tr>"
-        )
+        file.write("<tr><th>File</th><th>Encoding</th><th>Valid</th></tr>")
         for result in results:
             file.write(
                 "<tr>"
@@ -159,6 +91,4 @@ def write_html_report(
                 "</tr>"
             )
         file.write("</table>")
-        file.write(
-            "</body></html>"
-        )
+        file.write("</body></html>")

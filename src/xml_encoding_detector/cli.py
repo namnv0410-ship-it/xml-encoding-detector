@@ -11,7 +11,6 @@ from .report import (
 )
 
 
-
 def write_output(
     content: str,
     output_file: str | None,
@@ -64,19 +63,10 @@ def main() -> int:
         if index + 1 < len(sys.argv):
             csv_file = sys.argv[index + 1]
     if "--html" in sys.argv:
+        index = sys.argv.index("--html")
 
-        index = sys.argv.index(
-            "--html"
-        )
-
-        if (
-            index + 1
-            < len(sys.argv)
-        ):
-
-            html_file = sys.argv[
-                index + 1
-            ] 
+        if index + 1 < len(sys.argv):
+            html_file = sys.argv[index + 1]
 
     skip_next = False
 
@@ -95,7 +85,6 @@ def main() -> int:
             skip_next = True
             continue
         if arg == "--html":
-
             skip_next = True
             continue
 
@@ -207,7 +196,7 @@ def main() -> int:
             valid_count,
             invalid_count,
         )
-            
+
     if stats_mode:
         print(f"Files scanned : {len(results)}")
 
@@ -279,5 +268,7 @@ def main() -> int:
         return 1
 
     return 0
+
+
 if __name__ == "__main__":
     raise SystemExit(main())

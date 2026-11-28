@@ -33,13 +33,13 @@ def test_cli_help(
 ):
 
     monkeypatch.setattr(
-    sys,
-    "argv",
-    [
-        "xml-encoding-detector",
-        "--help",
-    ],
-)
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            "--help",
+        ],
+    )
 
     from xml_encoding_detector.cli import (
         main,
@@ -462,24 +462,18 @@ def test_cli_stats_output(
     assert "Encodings" in output
 
     assert "utf-8" in output
+
+
 def test_cli_html_output(
     monkeypatch,
     tmp_path,
 ):
 
-    xml_file = (
-        tmp_path
-        / "test.xml"
-    )
+    xml_file = tmp_path / "test.xml"
 
-    xml_file.write_text(
-        "<root></root>"
-    )
+    xml_file.write_text("<root></root>")
 
-    report = (
-        tmp_path
-        / "report.html"
-    )
+    report = tmp_path / "report.html"
 
     monkeypatch.setattr(
         sys,
@@ -502,41 +496,24 @@ def test_cli_html_output(
 
     assert report.exists()
 
-    content = report.read_text(
-        encoding="utf-8"
-    )
+    content = report.read_text(encoding="utf-8")
 
-    assert (
-        "XML Encoding Audit Report"
-        in content
-    )
+    assert "XML Encoding Audit Report" in content
 
-    assert (
-        "<table"
-        in content
-    )
+    assert "<table" in content
 
-    assert (
-        "test.xml"
-        in content
-    )
+    assert "test.xml" in content
+
+
 def test_html_report_contains_encoding_distribution(
     monkeypatch,
     tmp_path,
 ):
-    xml_file = (
-        tmp_path
-        / "test.xml"
-    )
+    xml_file = tmp_path / "test.xml"
 
-    xml_file.write_text(
-        "<root></root>"
-    )
+    xml_file.write_text("<root></root>")
 
-    report = (
-        tmp_path
-        / "report.html"
-    )
+    report = tmp_path / "report.html"
 
     monkeypatch.setattr(
         sys,
@@ -553,20 +530,18 @@ def test_html_report_contains_encoding_distribution(
 
     assert result == 0
 
-    content = report.read_text(
-        encoding="utf-8"
-    )
+    content = report.read_text(encoding="utf-8")
 
     assert "Encoding Distribution" in content
+
+
 def test_html_report_contains_distribution_columns(
     monkeypatch,
     tmp_path,
 ):
     xml_file = tmp_path / "test.xml"
 
-    xml_file.write_text(
-        "<root></root>"
-    )
+    xml_file.write_text("<root></root>")
 
     report = tmp_path / "report.html"
 
@@ -583,22 +558,20 @@ def test_html_report_contains_distribution_columns(
 
     assert main() == 0
 
-    content = report.read_text(
-        encoding="utf-8"
-    )
+    content = report.read_text(encoding="utf-8")
 
     assert "Encoding" in content
     assert "Count" in content
     assert "Percentage" in content
+
+
 def test_html_report_contains_encoding_data(
     monkeypatch,
     tmp_path,
 ):
     xml_file = tmp_path / "test.xml"
 
-    xml_file.write_text(
-        "<root></root>"
-    )
+    xml_file.write_text("<root></root>")
 
     report = tmp_path / "report.html"
 
@@ -615,21 +588,19 @@ def test_html_report_contains_encoding_data(
 
     assert main() == 0
 
-    content = report.read_text(
-        encoding="utf-8"
-    )
+    content = report.read_text(encoding="utf-8")
 
     assert "utf-8" in content
     assert "100.0%" in content
+
+
 def test_html_report_contains_encoding_row(
     monkeypatch,
     tmp_path,
 ):
     xml_file = tmp_path / "test.xml"
 
-    xml_file.write_text(
-        "<root></root>"
-    )
+    xml_file.write_text("<root></root>")
 
     report = tmp_path / "report.html"
 
@@ -646,20 +617,18 @@ def test_html_report_contains_encoding_row(
 
     assert main() == 0
 
-    content = report.read_text(
-        encoding="utf-8"
-    )
+    content = report.read_text(encoding="utf-8")
 
     assert "<td>utf-8</td>" in content
+
+
 def test_html_report_contains_summary_section(
     monkeypatch,
     tmp_path,
 ):
     xml_file = tmp_path / "test.xml"
 
-    xml_file.write_text(
-        "<root></root>"
-    )
+    xml_file.write_text("<root></root>")
 
     report = tmp_path / "report.html"
 
@@ -676,20 +645,18 @@ def test_html_report_contains_summary_section(
 
     assert main() == 0
 
-    content = report.read_text(
-        encoding="utf-8"
-    )
+    content = report.read_text(encoding="utf-8")
 
     assert "Summary" in content
+
+
 def test_html_report_contains_files_scanned_summary(
     monkeypatch,
     tmp_path,
 ):
     xml_file = tmp_path / "test.xml"
 
-    xml_file.write_text(
-        "<root></root>"
-    )
+    xml_file.write_text("<root></root>")
 
     report = tmp_path / "report.html"
 
@@ -706,20 +673,18 @@ def test_html_report_contains_files_scanned_summary(
 
     assert main() == 0
 
-    content = report.read_text(
-        encoding="utf-8"
-    )
+    content = report.read_text(encoding="utf-8")
 
     assert "Files Scanned" in content
+
+
 def test_html_report_does_not_use_list_for_distribution(
     monkeypatch,
     tmp_path,
 ):
     xml_file = tmp_path / "test.xml"
 
-    xml_file.write_text(
-        "<root></root>"
-    )
+    xml_file.write_text("<root></root>")
 
     report = tmp_path / "report.html"
 
@@ -736,20 +701,18 @@ def test_html_report_does_not_use_list_for_distribution(
 
     assert main() == 0
 
-    content = report.read_text(
-        encoding="utf-8"
-    )
+    content = report.read_text(encoding="utf-8")
 
     assert "<ul>" not in content
+
+
 def test_html_report_contains_top_encoding(
     monkeypatch,
     tmp_path,
 ):
     xml_file = tmp_path / "test.xml"
 
-    xml_file.write_text(
-        "<root></root>"
-    )
+    xml_file.write_text("<root></root>")
 
     report = tmp_path / "report.html"
 
@@ -766,11 +729,11 @@ def test_html_report_contains_top_encoding(
 
     assert main() == 0
 
-    content = report.read_text(
-        encoding="utf-8"
-    )
+    content = report.read_text(encoding="utf-8")
 
     assert "Top Encoding" in content
+
+
 def test_top_encoding_is_computed(
     monkeypatch,
     tmp_path,
@@ -815,15 +778,15 @@ def test_top_encoding_is_computed(
 
     assert "Top Encoding" in content
     assert "utf-16" in content
+
+
 def test_html_report_contains_summary_cards(
     monkeypatch,
     tmp_path,
 ):
     xml_file = tmp_path / "test.xml"
 
-    xml_file.write_text(
-        "<root></root>"
-    )
+    xml_file.write_text("<root></root>")
 
     report = tmp_path / "report.html"
 
@@ -840,20 +803,18 @@ def test_html_report_contains_summary_cards(
 
     assert main() == 0
 
-    content = report.read_text(
-        encoding="utf-8"
-    )
+    content = report.read_text(encoding="utf-8")
 
     assert 'class="summary-card"' in content
+
+
 def test_html_report_contains_four_summary_cards(
     monkeypatch,
     tmp_path,
 ):
     xml_file = tmp_path / "test.xml"
 
-    xml_file.write_text(
-        "<root></root>"
-    )
+    xml_file.write_text("<root></root>")
 
     report = tmp_path / "report.html"
 
@@ -870,24 +831,18 @@ def test_html_report_contains_four_summary_cards(
 
     assert main() == 0
 
-    content = report.read_text(
-        encoding="utf-8"
-    )
+    content = report.read_text(encoding="utf-8")
 
-    assert (
-        content.count(
-            'class="summary-card"'
-        ) == 4
-    )
+    assert content.count('class="summary-card"') == 4
+
+
 def test_html_report_contains_card_title(
     monkeypatch,
     tmp_path,
 ):
     xml_file = tmp_path / "test.xml"
 
-    xml_file.write_text(
-        "<root></root>"
-    )
+    xml_file.write_text("<root></root>")
 
     report = tmp_path / "report.html"
 
@@ -904,20 +859,18 @@ def test_html_report_contains_card_title(
 
     assert main() == 0
 
-    content = report.read_text(
-        encoding="utf-8"
-    )
+    content = report.read_text(encoding="utf-8")
 
     assert "<h3>" in content
+
+
 def test_html_report_contains_summary_grid(
     monkeypatch,
     tmp_path,
 ):
     xml_file = tmp_path / "test.xml"
 
-    xml_file.write_text(
-        "<root></root>"
-    )
+    xml_file.write_text("<root></root>")
 
     report = tmp_path / "report.html"
 
@@ -934,20 +887,18 @@ def test_html_report_contains_summary_grid(
 
     assert main() == 0
 
-    content = report.read_text(
-        encoding="utf-8"
-    )
+    content = report.read_text(encoding="utf-8")
 
     assert 'class="summary-grid"' in content
+
+
 def test_html_report_contains_summary_grid(
     monkeypatch,
     tmp_path,
 ):
     xml_file = tmp_path / "test.xml"
 
-    xml_file.write_text(
-        "<root></root>"
-    )
+    xml_file.write_text("<root></root>")
 
     report = tmp_path / "report.html"
 
@@ -964,20 +915,18 @@ def test_html_report_contains_summary_grid(
 
     assert main() == 0
 
-    content = report.read_text(
-        encoding="utf-8"
-    )
+    content = report.read_text(encoding="utf-8")
 
     assert 'class="summary-grid"' in content
+
+
 def test_html_report_contains_style_block(
     monkeypatch,
     tmp_path,
 ):
     xml_file = tmp_path / "test.xml"
 
-    xml_file.write_text(
-        "<root></root>"
-    )
+    xml_file.write_text("<root></root>")
 
     report = tmp_path / "report.html"
 
@@ -994,20 +943,18 @@ def test_html_report_contains_style_block(
 
     assert main() == 0
 
-    content = report.read_text(
-        encoding="utf-8"
-    )
+    content = report.read_text(encoding="utf-8")
 
     assert "<style>" in content
+
+
 def test_html_report_contains_summary_grid_style(
     monkeypatch,
     tmp_path,
 ):
     xml_file = tmp_path / "test.xml"
 
-    xml_file.write_text(
-        "<root></root>"
-    )
+    xml_file.write_text("<root></root>")
 
     report = tmp_path / "report.html"
 
@@ -1024,28 +971,30 @@ def test_html_report_contains_summary_grid_style(
 
     assert main() == 0
 
-    content = report.read_text(
-        encoding="utf-8"
-    )
+    content = report.read_text(encoding="utf-8")
 
     assert "display:flex" in content
+
+
 def test_package_has_main_module():
     from xml_encoding_detector import __main__
 
     assert __main__ is not None
+
+
 def test_main_module_exposes_main():
     from xml_encoding_detector.__main__ import main
 
     assert callable(main)
+
+
 def test_json_report_output(
     monkeypatch,
     tmp_path,
 ):
     xml_file = tmp_path / "test.xml"
 
-    xml_file.write_text(
-        "<root></root>"
-    )
+    xml_file.write_text("<root></root>")
 
     report = tmp_path / "report.json"
 
@@ -1064,15 +1013,15 @@ def test_json_report_output(
     assert main() == 0
 
     assert report.exists()
+
+
 def test_csv_report_output(
     monkeypatch,
     tmp_path,
 ):
     xml_file = tmp_path / "test.xml"
 
-    xml_file.write_text(
-        "<root></root>"
-    )
+    xml_file.write_text("<root></root>")
 
     report = tmp_path / "report.csv"
 
@@ -1091,9 +1040,7 @@ def test_csv_report_output(
 
     assert report.exists()
 
-    content = report.read_text(
-        encoding="utf-8"
-    )
+    content = report.read_text(encoding="utf-8")
 
     assert "file" in content
     assert "encoding" in content
