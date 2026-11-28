@@ -1216,3 +1216,37 @@ def test_stats_json_export(
     )
 
     assert "top_encoding" in content
+def test_markdown_report_output(
+    monkeypatch,
+    tmp_path,
+):
+    xml_file = tmp_path / "test.xml"
+
+    xml_file.write_text(
+        "<root/>",
+        encoding="utf-8",
+    )
+
+    report = tmp_path / "report.md"
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            str(xml_file),
+            "--markdown",
+            "--output",
+            str(report),
+        ],
+    )
+
+    assert main() == 0
+
+    assert report.exists()
+
+    content = report.read_text(
+        encoding="utf-8"
+    )
+
+    assert "# XML Encoding Report" in content

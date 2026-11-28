@@ -43,6 +43,7 @@ def main() -> int:
         return 2
 
     json_mode = "--json" in sys.argv
+    markdown_mode = "--markdown" in sys.argv
     stats_mode = "--stats" in sys.argv
 
     recursive_mode = "--recursive" in sys.argv
@@ -76,6 +77,7 @@ def main() -> int:
             "--json",
             "--recursive",
             "--summary",
+            "--markdown",
             "--stats",
             "--csv",
             "--html",
@@ -172,7 +174,21 @@ def main() -> int:
             writer.writeheader()
 
             writer.writerows(results)
-        
+
+    if markdown_mode and output_file:
+        content = "# XML Encoding Report\n\n"
+
+        content += (
+            f"Files scanned: "
+            f"{len(results)}\n\n"
+        )
+
+        with open(
+            output_file,
+            "w",
+            encoding="utf-8",
+        ) as file:
+            file.write(content)   
     if html_mode and output_file:
         print(f"Writing HTML report to: {output_file}")
         write_html_report(
