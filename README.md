@@ -1,60 +1,104 @@
-xml-encoding-detector
+XML Encoding Detector
 
-Lightweight XML encoding detector for Python.
+A Python command-line tool for detecting XML encodings, validating XML files, and generating HTML, CSV, and JSON reports.
 
 
 
 Features
 
-UTF-8 BOM detection
+Detect XML encodings
 
-UTF-16 LE/BE BOM detection
+Validate XML documents
 
-UTF-32 LE/BE BOM detection
+Scan directories recursively
 
-XML declaration parsing
+Generate JSON reports
 
-Encoding alias normalization
+Generate CSV reports
+
+Generate HTML dashboards
+
+Summary statistics
+
+Top encoding analysis
 
 Installation
 
-pip install xml-encoding-detector
+Development
+
+git clone <repository-url>
+
+cd xml-encoding-detector
+
+
+
+pip install -e .
+
+Wheel
+
+pip install dist/xml\_encoding\_detector-0.4.0-py3-none-any.whl
 
 Usage
 
-from xml\_encoding\_detector import (
+Scan a file
 
-&#x20;   detect\_encoding,
+xml-encoding-detector file.xml
 
-)
+Scan a directory
+
+xml-encoding-detector sample
+
+Recursive scan
+
+xml-encoding-detector sample --recursive
+
+JSON report
+
+xml-encoding-detector sample --json --output report.json
+
+CSV report
+
+xml-encoding-detector sample --csv --output report.csv
+
+HTML report
+
+xml-encoding-detector sample --html --output report.html
+
+Run as module
+
+python -m xml\_encoding\_detector sample
+
+Quality
+
+62 automated tests
+
+98% code coverage
+
+GitHub Actions CI
+
+Ruff formatting
+
+Development
+
+Run tests:
 
 
 
-xml = (
+pytest
 
-&#x20;   b'<?xml version="1.0" '
-
-&#x20;   b'encoding="Shift\_JIS"?>'
-
-)
+Run formatting:
 
 
 
-result = detect\_encoding(xml)
+ruff format .
+
+Build package:
 
 
 
-print(result.encoding)
+python -m build
 
-print(result.confidence)
+License
 
-print(result.source)
-
-Example Output
-
-shift\_jis
-
-0.9
-
-xml-declaration
+MIT
 
