@@ -404,6 +404,7 @@ def test_cli_csv_output(
             "xml-encoding-detector",
             str(xml_file),
             "--csv",
+            "--output",
             str(report),
         ],
     )
@@ -482,6 +483,7 @@ def test_cli_html_output(
             "xml-encoding-detector",
             str(xml_file),
             "--html",
+            "--output",
             str(report),
         ],
     )
@@ -522,6 +524,7 @@ def test_html_report_contains_encoding_distribution(
             "xml-encoding-detector",
             str(xml_file),
             "--html",
+            "--output",
             str(report),
         ],
     )
@@ -552,6 +555,7 @@ def test_html_report_contains_distribution_columns(
             "xml-encoding-detector",
             str(xml_file),
             "--html",
+            "--output",
             str(report),
         ],
     )
@@ -582,6 +586,7 @@ def test_html_report_contains_encoding_data(
             "xml-encoding-detector",
             str(xml_file),
             "--html",
+            "--output",
             str(report),
         ],
     )
@@ -611,6 +616,7 @@ def test_html_report_contains_encoding_row(
             "xml-encoding-detector",
             str(xml_file),
             "--html",
+            "--output",
             str(report),
         ],
     )
@@ -639,6 +645,7 @@ def test_html_report_contains_summary_section(
             "xml-encoding-detector",
             str(xml_file),
             "--html",
+            "--output",
             str(report),
         ],
     )
@@ -667,6 +674,7 @@ def test_html_report_contains_files_scanned_summary(
             "xml-encoding-detector",
             str(xml_file),
             "--html",
+            "--output",
             str(report),
         ],
     )
@@ -695,6 +703,7 @@ def test_html_report_does_not_use_list_for_distribution(
             "xml-encoding-detector",
             str(xml_file),
             "--html",
+            "--output",
             str(report),
         ],
     )
@@ -723,6 +732,7 @@ def test_html_report_contains_top_encoding(
             "xml-encoding-detector",
             str(xml_file),
             "--html",
+            "--output",
             str(report),
         ],
     )
@@ -766,6 +776,7 @@ def test_top_encoding_is_computed(
             "xml-encoding-detector",
             str(tmp_path),
             "--html",
+            "--output",
             str(report),
         ],
     )
@@ -797,6 +808,7 @@ def test_html_report_contains_summary_cards(
             "xml-encoding-detector",
             str(xml_file),
             "--html",
+            "--output",
             str(report),
         ],
     )
@@ -825,6 +837,7 @@ def test_html_report_contains_four_summary_cards(
             "xml-encoding-detector",
             str(xml_file),
             "--html",
+            "--output",
             str(report),
         ],
     )
@@ -853,6 +866,7 @@ def test_html_report_contains_card_title(
             "xml-encoding-detector",
             str(xml_file),
             "--html",
+            "--output",
             str(report),
         ],
     )
@@ -881,6 +895,7 @@ def test_html_report_contains_summary_grid(
             "xml-encoding-detector",
             str(xml_file),
             "--html",
+            "--output",
             str(report),
         ],
     )
@@ -909,6 +924,7 @@ def test_html_report_contains_summary_grid(
             "xml-encoding-detector",
             str(xml_file),
             "--html",
+            "--output",
             str(report),
         ],
     )
@@ -937,6 +953,7 @@ def test_html_report_contains_style_block(
             "xml-encoding-detector",
             str(xml_file),
             "--html",
+            "--output",
             str(report),
         ],
     )
@@ -965,6 +982,7 @@ def test_html_report_contains_summary_grid_style(
             "xml-encoding-detector",
             str(xml_file),
             "--html",
+            "--output",
             str(report),
         ],
     )
@@ -1032,6 +1050,7 @@ def test_csv_report_output(
             "xml-encoding-detector",
             str(xml_file),
             "--csv",
+            "--output",
             str(report),
         ],
     )
@@ -1045,3 +1064,31 @@ def test_csv_report_output(
     assert "file" in content
     assert "encoding" in content
     assert "test.xml" in content
+
+
+def test_output_file_not_scanned(
+    monkeypatch,
+    tmp_path,
+):
+    xml_file = tmp_path / "test.xml"
+    xml_file.write_text("<root/>")
+
+    report = tmp_path / "report.csv"
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            str(xml_file),
+            "--csv",
+            "--output",
+            str(report),
+        ],
+    )
+
+    assert main() == 0
+    assert report.exists()
+    content = report.read_text(encoding="utf-8")
+
+    assert "report.csv" not in content

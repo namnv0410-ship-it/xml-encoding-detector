@@ -25,6 +25,7 @@ def write_output(
 
 
 def main() -> int:
+
     if len(sys.argv) < 2 or sys.argv[1] in (
         "-h",
         "--help",
@@ -49,24 +50,13 @@ def main() -> int:
     stats_mode = "--stats" in sys.argv
 
     output_file = None
-    csv_file = None
-    html_file = None
-
     if "--output" in sys.argv:
         index = sys.argv.index("--output")
-
         if index + 1 < len(sys.argv):
             output_file = sys.argv[index + 1]
-    if "--csv" in sys.argv:
-        index = sys.argv.index("--csv")
+    csv_mode = "--csv" in sys.argv
 
-        if index + 1 < len(sys.argv):
-            csv_file = sys.argv[index + 1]
-    if "--html" in sys.argv:
-        index = sys.argv.index("--html")
-
-        if index + 1 < len(sys.argv):
-            html_file = sys.argv[index + 1]
+    html_mode = "--html" in sys.argv
 
     skip_next = False
 
@@ -78,13 +68,6 @@ def main() -> int:
             continue
 
         if arg == "--output":
-            skip_next = True
-            continue
-
-        if arg == "--csv":
-            skip_next = True
-            continue
-        if arg == "--html":
             skip_next = True
             continue
 
@@ -167,9 +150,9 @@ def main() -> int:
 
         if not json_mode and not summary_mode:
             print(f"{path.name}: valid={result.valid}, encoding={result.encoding}")
-    if csv_file:
+    if csv_mode and output_file:
         with open(
-            csv_file,
+            output_file,
             "w",
             newline="",
             encoding="utf-8",
@@ -187,10 +170,10 @@ def main() -> int:
             writer.writeheader()
 
             writer.writerows(results)
-    if html_file:
-        print(f"Writing HTML report to: {html_file}")
+    if html_mode and output_file:
+        print(f"Writing HTML report to: {output_file}")
         write_html_report(
-            html_file,
+            output_file,
             results,
             encodings,
             valid_count,

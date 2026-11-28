@@ -1,8 +1,44 @@
-{
-  "files_scanned": 2,
-  "valid": 2,
-  "invalid": 0,
-  "encodings": {
-    "utf-8": 2
+[
+  {
+    "file": "196399_1_K26THM.xml",
+    "valid": true,
+    "encoding": "utf-8",
+    "error": null
+  },
+  {
+    "file": "196400_1_K26THM.xml",
+    "valid": true,
+    "encoding": "utf-8",
+    "error": null
+  },
+  {
+    "file": "196419_1_K26THM.xml",
+    "valid": true,
+    "encoding": "utf-8",
+    "error": null
+  },
+  {
+    "file": "197756_1_K26THM.xml",
+    "valid": true,
+    "encoding": "utf-8",
+    "error": null
+  },
+  {
+    "file": "File1.xml",
+    "valid": true,
+    "encoding": "utf-8",
+    "error": null
+  },
+  {
+    "file": "File2.xml",
+    "valid": true,
+    "encoding": "utf-8",
+    "error": null
+  },
+  {
+    "file": "File3.xml",
+    "valid": true,
+    "encoding": "utf-8",
+    "error": null
   }
-}
+]
