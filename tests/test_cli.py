@@ -1029,3 +1029,11 @@ def test_html_report_contains_summary_grid_style(
     )
 
     assert "display:flex" in content
+def test_package_has_main_module():
+    from xml_encoding_detector import __main__
+
+    assert __main__ is not None
+def test_main_module_exposes_main():
+    from xml_encoding_detector.__main__ import main
+
+    assert callable(main)
