@@ -134,3 +134,25 @@ utf-16        8 (19.0%)
 
 cp1258        4 (9.5%)
 
+Statistics
+
+xml-encoding-detector sample --stats
+
+Statistics JSON
+
+xml-encoding-detector sample \\
+
+&#x20; --stats \\
+
+&#x20; --json \\
+
+&#x20; --output stats.json
+
+Markdown Report
+
+xml-encoding-detector sample \\
+
+&#x20; --markdown \\
+
+&#x20; --output report.md
+
