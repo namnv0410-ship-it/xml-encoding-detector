@@ -170,6 +170,12 @@ def main() -> int:
             writer.writeheader()
 
             writer.writerows(results)
+        print(
+            f"DEBUG html_mode={html_mode}"
+        )
+        print(
+            f"DEBUG output_file={output_file}"
+        )
     if html_mode and output_file:
         print(f"Writing HTML report to: {output_file}")
         write_html_report(
