@@ -189,4 +189,9 @@ Improved report generation workflow
 Fixed duplicate test definitions
 Fixed Ruff lint issues
 Improved statistics reporting
+Statistics CSV Export
+xml-encoding-detector sample \
+  --stats \
+  --csv \
+  --output stats.csv
 
