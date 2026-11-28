@@ -157,4 +157,36 @@ xml-encoding-detector sample \\
 &#x20; --output report.md
 
 Features
+XML Encoding Detector v0.7.2
+Highlights
+XML encoding detection
+XML validation
+Recursive directory scanning
+Report Formats
+HTML dashboard report
+CSV export
+JSON export
+Markdown export
+Statistics
+Files scanned summary
+Valid XML count
+Invalid XML count
+Top Encoding
+Encoding distribution percentages
+Statistics JSON export
+Quality
+67 automated tests
+98% code coverage
+Ruff linting
+GitHub Actions CI
+Packaging
+Wheel distribution
+Source distribution
+Console script entry point
+Module entry point support
+Fixes
+Improved report generation workflow
+Fixed duplicate test definitions
+Fixed Ruff lint issues
+Improved statistics reporting
 

@@ -1222,3 +1222,36 @@ def test_markdown_report_output(
     )
 
     assert "# XML Encoding Report" in content
+def test_stats_csv_export(
+    monkeypatch,
+    tmp_path,
+):
+    xml_file = tmp_path / "test.xml"
+
+    xml_file.write_text(
+        "<root/>",
+        encoding="utf-8",
+    )
+
+    report = tmp_path / "stats.csv"
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            str(xml_file),
+            "--stats",
+            "--csv",
+            "--output",
+            str(report),
+        ],
+    )
+
+    assert main() == 0
+
+    content = report.read_text(
+        encoding="utf-8"
+    )
+
+    assert "encoding,count,percentage" in content

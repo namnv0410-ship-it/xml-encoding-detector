@@ -155,26 +155,30 @@ def main() -> int:
         if not json_mode and not summary_mode:
             print(f"{path.name}: valid={result.valid}, encoding={result.encoding}")
         
-    if csv_mode and output_file:
-        with open(
+        if (
+            csv_mode
+            and output_file
+            and not stats_mode
+        ):
+            with open(
             output_file,
             "w",
             newline="",
             encoding="utf-8",
-        ) as file:
-            writer = csv.DictWriter(
-                file,
-                fieldnames=[
-                    "file",
-                    "valid",
-                    "encoding",
-                    "error",
-                ],
-            )
+            ) as file:
+                writer = csv.DictWriter(
+                    file,
+                    fieldnames=[
+                        "file",
+                        "valid",
+                        "encoding",
+                        "error",
+                    ],
+                )
 
-            writer.writeheader()
+                writer.writeheader()
 
-            writer.writerows(results)
+                writer.writerows(results)
 
     if markdown_mode and output_file:
         content = "# XML Encoding Report\n\n"
@@ -267,6 +271,8 @@ def main() -> int:
         total = sum(
             encodings.values()
         )
+        stats_rows = []
+
 
         for (
             encoding,
@@ -275,11 +281,46 @@ def main() -> int:
             percentage = (
                 count / total * 100
         )
+            stats_rows.append(
+                {
+                    "encoding": encoding,
+                    "count": count,
+                    "percentage": round(
+                        percentage,
+                        1,
+                    ),
+                }
+            )
 
             print(
                 f"{encoding:<15}"
                 f"{count:<5}"
                 f"({percentage:.1f}%)"
+            )
+    if (
+        stats_mode
+        and csv_mode
+        and output_file
+    ):
+        with open(
+            output_file,
+            "w",
+            newline="",
+            encoding="utf-8",
+        ) as file:
+            writer = csv.DictWriter(
+                file,
+                fieldnames=[
+                    "encoding",
+                    "count",
+                    "percentage",
+                ],
+            )
+
+            writer.writeheader()
+
+            writer.writerows(
+                stats_rows
             )
     if summary_mode:
         summary = {
