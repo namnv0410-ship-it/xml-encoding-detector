@@ -1121,3 +1121,30 @@ def test_stats_output(
     output = capsys.readouterr().out
 
     assert "Encoding Statistics" in output
+def test_stats_contains_top_encoding(
+    monkeypatch,
+    tmp_path,
+    capsys,
+):
+    xml_file = tmp_path / "test.xml"
+
+    xml_file.write_text(
+        "<root/>",
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            str(xml_file),
+            "--stats",
+        ],
+    )
+
+    assert main() == 0
+
+    output = capsys.readouterr().out
+
+    assert "Top Encoding" in output

@@ -151,22 +151,7 @@ def main() -> int:
 
         if not json_mode and not summary_mode:
             print(f"{path.name}: valid={result.valid}, encoding={result.encoding}")
-        if stats_mode:
-            encoding_list = [
-                result["encoding"] for result in results if result["encoding"]
-            ]
-
-            counts = Counter(encoding_list)
-
-            print()
-            print("Encoding Statistics")
-            print("===================")
-            total = sum(counts.values())
-
-            for encoding, count in counts.items():
-                percentage = count / total * 100
-
-                print(f"{encoding}: {count} ({percentage:.1f}%)")
+        
     if csv_mode and output_file:
         with open(
             output_file,
@@ -187,8 +172,7 @@ def main() -> int:
             writer.writeheader()
 
             writer.writerows(results)
-        print(f"DEBUG html_mode={html_mode}")
-        print(f"DEBUG output_file={output_file}")
+        
     if html_mode and output_file:
         print(f"Writing HTML report to: {output_file}")
         write_html_report(
@@ -200,23 +184,65 @@ def main() -> int:
         )
 
     if stats_mode:
-        print(f"Files scanned : {len(results)}")
+        print()
+        print("Encoding Statistics")
+        print("===================")
+        print()
+
+        print(
+            f"Files scanned : {len(results)}"
+        )
+
+        valid_count = sum(
+            1
+            for result in results
+            if result["valid"]
+        )
+
+        invalid_count = (
+            len(results)
+            - valid_count
+        )
+
+        print(
+            f"Valid XML     : {valid_count}"
+        )
+
+        print(
+            f"Invalid XML   : {invalid_count}"
+        )
 
         print()
 
-        print("Encodings")
+        top_encoding = (
+            encodings.most_common(1)[0][0]
+        )
 
+        print(
+            f"Top Encoding  : {top_encoding}"
+        )
+
+        print()
+        print("Encodings")
         print("---------")
 
-        total = sum(counts.values())
+        total = sum(
+            encodings.values()
+        )
 
         for (
             encoding,
             count,
-        ) in sorted(encodings.items()):
-            percentage = count / total * 100
+        ) in encodings.most_common():
+            percentage = (
+                count / total * 100
+        )
 
-            print(f"{encoding:<15} {count:<5} ({percentage:.1f}%)")
+            print(
+                f"{encoding:<15}"
+                f"{count:<5}"
+                f"({percentage:.1f}%)"
+            )
     if summary_mode:
         summary = {
             "files_scanned": len(results),
