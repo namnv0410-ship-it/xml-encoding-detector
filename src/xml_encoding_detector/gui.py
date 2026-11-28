@@ -11,6 +11,10 @@ from xml_encoding_detector.detector import (
     detect_encoding,
     validate_xml,
 )
+
+from xml_encoding_detector.report import (
+    write_html_report,
+)
 import tkinter as tk
 from tkinter import ttk
 
@@ -41,7 +45,13 @@ class XMLDetectorApp:
         self.recursive_var = tk.BooleanVar(
             value=True
         )
+        self.results = []
 
+        self.encodings = {}
+
+        self.valid_count = 0
+
+        self.invalid_count = 0
         self._build_ui()
 
     def _build_ui(self) -> None:
@@ -367,6 +377,7 @@ class XMLDetectorApp:
         valid_xml = 0
         invalid_xml = 0
         encodings = {}
+        results = []
         pattern = (
             "**/*.xml"
             if self.recursive_var.get()
@@ -401,6 +412,15 @@ class XMLDetectorApp:
                 )
                 + 1
             )
+            results.append(
+                {
+                    "file": xml_file.name,
+                    "valid": validation.valid,
+                    "encoding": encoding,
+                    "error": validation.error,
+                }
+            )
+
 
             self.table.insert(
                 "",
@@ -435,6 +455,13 @@ class XMLDetectorApp:
         self.files_label.config(
             text=f"Files Scanned: {files_scanned}"
         )
+        self.results = results
+
+        self.encodings = encodings
+
+        self.valid_count = valid_xml
+
+        self.invalid_count = invalid_xml
         self.status.config(
             text="Scan complete"
         )
@@ -467,6 +494,15 @@ class XMLDetectorApp:
         if not output_file:
             return
 
+        if output_format == "html":
+            write_html_report(
+                output_file,
+                self.results,
+                self.encodings,
+                self.valid_count,
+                self.invalid_count,
+            )
+
         messagebox.showinfo(
             "Export",
             (
@@ -481,8 +517,6 @@ class XMLDetectorApp:
                 f"{output_format.upper()}"
             )
         )
-
-
 
 def main() -> None:
     root = tk.Tk()
