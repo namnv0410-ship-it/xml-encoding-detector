@@ -33,13 +33,13 @@ def test_cli_help(
 ):
 
     monkeypatch.setattr(
-        sys,
-        "argv",
-        [
-            "xml-encoding-detector",
-            "--help",
-        ],
-    )
+    sys,
+    "argv",
+    [
+        "xml-encoding-detector",
+        "--help",
+    ],
+)
 
     from xml_encoding_detector.cli import (
         main,
@@ -1037,3 +1037,64 @@ def test_main_module_exposes_main():
     from xml_encoding_detector.__main__ import main
 
     assert callable(main)
+def test_json_report_output(
+    monkeypatch,
+    tmp_path,
+):
+    xml_file = tmp_path / "test.xml"
+
+    xml_file.write_text(
+        "<root></root>"
+    )
+
+    report = tmp_path / "report.json"
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            str(xml_file),
+            "--json",
+            "--output",
+            str(report),
+        ],
+    )
+
+    assert main() == 0
+
+    assert report.exists()
+def test_csv_report_output(
+    monkeypatch,
+    tmp_path,
+):
+    xml_file = tmp_path / "test.xml"
+
+    xml_file.write_text(
+        "<root></root>"
+    )
+
+    report = tmp_path / "report.csv"
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "xml-encoding-detector",
+            str(xml_file),
+            "--csv",
+            str(report),
+        ],
+    )
+
+    assert main() == 0
+
+    assert report.exists()
+
+    content = report.read_text(
+        encoding="utf-8"
+    )
+
+    assert "file" in content
+    assert "encoding" in content
+    assert "test.xml" in content
